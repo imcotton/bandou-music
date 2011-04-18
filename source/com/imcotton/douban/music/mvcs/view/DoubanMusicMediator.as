@@ -8,11 +8,11 @@ public class DoubanMusicMediator extends Mediator
 {
 
     [Inject]
-    public var view:DoubanMusic;
+    public var view:AppViewAdapter;
 
     override public function onRegister ():void
     {
-        trace(this.view.numChildren);
+        trace(this.view);
     }
 
 }

@@ -8,23 +8,27 @@
     height="200"
     showStatusBar="false"
 >
+    <s:layout>
+        <s:BasicLayout/>
+    </s:layout>
 
     <fx:Declarations>
         <app:AppContext contextView="{this}" />
     </fx:Declarations>
 
-    <s:DropDownList x="270" y="10" width="120"></s:DropDownList>
-    <mx:Image x="10" y="10" width="120" height="120"/>
-    <s:Label x="10" y="138" width="120" color="#474747" fontWeight="bold" text="02:32 / 05:24"
+    <s:DropDownList id="playList" x="270" y="10" width="120"></s:DropDownList>
+    <mx:Image id="image" x="10" y="10" width="120" height="120"/>
+    <s:Label id="timeText" x="10" y="138" width="120" color="#474747" fontWeight="bold"
              textAlign="center"/>
-    <s:Label x="10.5" y="165.5" width="380" color="#630000" fontFamily="Verdana" fontSize="13"
-             fontWeight="normal" text="Songs name and Album name" textAlign="left"/>
-    <s:Label x="10.5" y="180" width="380" color="#000000" fontFamily="Arial" fontSize="12"
-             fontWeight="bold" text="author's name" textAlign="right"/>
-    <s:VSlider x="138" y="10" height="120"/>
-    <s:ToggleButton x="176" y="60" width="60" height="50" label="Like"/>
-    <s:Button x="244" y="60" width="60" height="50" label="Del"/>
-    <s:Button x="312" y="60" width="60" height="50" label="Next"/>
+    <s:Label id="titleText" x="10.5" y="165.5" width="380" color="#630000" fontFamily="Verdana"
+             fontSize="13" fontWeight="normal" textAlign="left"/>
+    <s:Label id="authorText" x="10.5" y="180" width="380" color="#000000" fontFamily="Arial"
+             fontSize="12" fontWeight="bold" textAlign="right"/>
+    <s:VSlider id="volumeBar" x="138" y="10" height="120" maximum="100" minimum="0" stepSize="1"
+               value="80"/>
+    <s:ToggleButton id="likeBtn" x="176" y="60" width="60" height="50" label="Like"/>
+    <s:Button id="delBtn" x="244" y="60" width="60" height="50" label="Del"/>
+    <s:Button id="nextBtn" x="312" y="60" width="60" height="50" label="Next"/>
 
 </s:WindowedApplication>
 
