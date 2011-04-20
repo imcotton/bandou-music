@@ -16,7 +16,7 @@
         <app:AppContext contextView="{this}" />
     </fx:Declarations>
 
-    <s:DropDownList id="playList" x="270" y="10" width="120"></s:DropDownList>
+    <s:DropDownList id="channelList" x="270" y="10" width="120"></s:DropDownList>
     <mx:Image id="image" x="10" y="10" width="120" height="120"/>
     <s:Label id="timeText" x="10" y="138" width="120" color="#474747" fontWeight="bold"
              textAlign="center"/>
