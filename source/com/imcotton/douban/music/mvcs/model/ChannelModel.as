@@ -35,7 +35,10 @@ public class ChannelModel extends Actor
     {
         this._current = $item;
 
-        this.dispatch(new PlayListEvent(PlayListEvent.CHANNEL_CHANGE, $item));
+        var event:PlayListEvent = new PlayListEvent(PlayListEvent.CHANNEL_CHANGE);
+            event.channelItem = $item;
+
+        this.dispatch(event);
     }
 
     public function getItemByIndex ($index:int):ChannelItem

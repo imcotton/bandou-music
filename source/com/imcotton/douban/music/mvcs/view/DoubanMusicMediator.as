@@ -28,7 +28,10 @@ public class DoubanMusicMediator extends Mediator
 
     private function onChannel ($item:ChannelItem):void
     {
-        this.dispatch(new PlayListEvent(PlayListEvent.CHANGE_CHANNEL, $item));
+        var event:PlayListEvent = new PlayListEvent(PlayListEvent.CHANGE_CHANNEL);
+            event.channelItem = $item;
+
+        this.dispatch(event);
     }
 
     private function onContextEvent (event:Event):void
