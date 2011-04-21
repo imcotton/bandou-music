@@ -131,7 +131,7 @@ class Variables
 
     public function setMark ():Variables
     {
-        this.urlVarables.mark = "imcotton";
+        this.urlVarables.mark = "imcotton@air";
 
         return this;
     }
