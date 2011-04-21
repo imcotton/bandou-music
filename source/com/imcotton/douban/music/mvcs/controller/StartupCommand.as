@@ -4,6 +4,7 @@ package com.imcotton.douban.music.mvcs.controller
 import com.imcotton.douban.music.mvcs.events.PlayListEvent;
 import com.imcotton.douban.music.mvcs.model.ChannelModel;
 import com.imcotton.douban.music.mvcs.model.PlayListModel;
+import com.imcotton.douban.music.mvcs.model.RemoteModel;
 import com.imcotton.douban.music.mvcs.service.IPlayListService;
 import com.imcotton.douban.music.mvcs.service.PlayListService;
 import com.imcotton.douban.music.mvcs.view.AppViewWrapper;
@@ -20,6 +21,7 @@ public class StartupCommand extends Command
         this.injector.mapSingleton(ChannelModel);
 
         this.injector.mapSingleton(PlayListModel);
+        this.injector.mapSingleton(RemoteModel);
         this.injector.mapSingletonOf(IPlayListService, PlayListService);
 
         this.injector.mapValue(DoubanMusic, this.contextView);
