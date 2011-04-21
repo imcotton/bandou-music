@@ -3,7 +3,6 @@ package com.imcotton.douban.music.mvcs.view
 
 import com.imcotton.douban.music.mvcs.events.PlayListEvent;
 import com.imcotton.douban.music.mvcs.model.ChannelItem;
-import com.imcotton.douban.music.mvcs.model.ChannelModel;
 
 import flash.events.Event;
 
@@ -15,9 +14,6 @@ public class DoubanMusicMediator extends Mediator
 
     [Inject]
     public var view:AppViewWrapper;
-
-    [Inject]
-    public var channelModel:ChannelModel;
 
     override public function onRegister ():void
     {
