@@ -30,6 +30,7 @@ public class PlayListModel extends Actor
 
     public function update ($list:Vector.<PlayListItem>):void
     {
+        this.index = 0;
         this._list = $list;
 
         this.dispatch(new PlayListEvent(PlayListEvent.LIST_CHANGE));
@@ -37,6 +38,22 @@ public class PlayListModel extends Actor
 
     public function next ():void
     {
+        this.index++;
+        
+        var event:PlayListEvent;
+        
+        if (this.index >= this.list.length)
+        {
+            this.index = -1;
+            event = new PlayListEvent(PlayListEvent.RENEW_CHANNEL);
+        }
+        else
+        {
+            event = new PlayListEvent(PlayListEvent.PLAY_NEXT);
+            event.playListItem = this.current;
+        }
+        
+        this.dispatch(event);
     }
 
     private function init ():void
