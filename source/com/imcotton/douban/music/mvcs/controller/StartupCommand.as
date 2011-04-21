@@ -19,11 +19,9 @@ public class StartupCommand extends Command
     override public function execute ():void
     {
         this.injector.mapSingleton(ChannelModel);
-
         this.injector.mapSingleton(PlayListModel);
         this.injector.mapSingleton(RemoteModel);
         this.injector.mapSingletonOf(IPlayListService, PlayListService);
-
         this.injector.mapValue(DoubanMusic, this.contextView);
 
 
@@ -34,14 +32,7 @@ public class StartupCommand extends Command
         this.mediatorMap.createMediator(this.injector.instantiate(AppViewWrapper));
 
 
-        this.dispatch
-        (
-            new PlayListEvent
-            (
-                PlayListEvent.CHANGE_CHANNEL,
-                ChannelModel(this.injector.getInstance(ChannelModel)).getItemByIndex(0)
-            )
-        );
+        this.commandMap.execute(ChannelSwitchCommand);
     }
 
 }
