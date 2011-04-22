@@ -25,6 +25,9 @@ public class PlayListModel extends Actor
 
     public function get current ():PlayListItem
     {
+        if (this.index < 0 || this.index > this.list.length - 1)
+            return null;
+
         return this.list[this.index];
     }
 
