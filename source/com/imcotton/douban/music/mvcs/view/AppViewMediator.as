@@ -23,6 +23,7 @@ public class AppViewMediator extends Mediator
     {
         this.view.channelSignal.add(onChannel);
         this.view.skipSignal.add(onSkip);
+        this.view.nextSignal.add(onNext);
 
         this.addContextListener(PlayListEvent.CHANNEL_CHANGE, onContextEvent);
         this.addContextListener(PlayListEvent.PLAY_NEXT, onContextEvent);
@@ -39,6 +40,11 @@ public class AppViewMediator extends Mediator
     private function onSkip ():void
     {
         this.playListModel.skip();
+    }
+
+    private function onNext ():void
+    {
+        this.playListModel.next();
     }
 
     private function onContextEvent (event:Event):void

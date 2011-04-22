@@ -26,8 +26,8 @@ public class AppViewWrapper
     public var appView:DoubanMusic;
 
     public var channelSignal:Signal;
-
     public var skipSignal:Signal;
+    public var nextSignal:Signal;
 
     [PostConstruct]
     public function postConstruct ():void
@@ -38,6 +38,7 @@ public class AppViewWrapper
             channelList.labelField = "name";
 
         this.appView.skipBtn.addEventListener(FlexEvent.BUTTON_DOWN, skipBtn_onButtonDown);
+        this.appView.nextBtn.addEventListener(FlexEvent.BUTTON_DOWN, nextBtn_onButtonDown);
     }
 
     public function AppViewWrapper ()
@@ -61,6 +62,7 @@ public class AppViewWrapper
     {
         this.channelSignal = new Signal(ChannelItem);
         this.skipSignal = new Signal();
+        this.nextSignal = new Signal();
     }
 
     private function channelList_onChange (event:Event):void
@@ -71,6 +73,11 @@ public class AppViewWrapper
     private function skipBtn_onButtonDown (event:Event):void
     {
         this.skipSignal.dispatch();
+    }
+
+    private function nextBtn_onButtonDown (event:Event):void
+    {
+        this.nextSignal.dispatch();
     }
 
 }

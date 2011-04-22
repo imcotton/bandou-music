@@ -16,7 +16,7 @@
         <app:AppContext contextView="{this}" />
     </fx:Declarations>
 
-    <s:DropDownList id="channelList" x="270" y="10" width="120"></s:DropDownList>
+    <s:DropDownList id="channelList" x="270" y="10" width="120"/>
     <mx:Image id="image" x="10" y="10" width="120" height="120"/>
     <s:Label id="timeText" x="10" y="138" width="120" color="#474747" fontWeight="bold"
              textAlign="center"/>
@@ -28,7 +28,8 @@
                value="80"/>
     <s:ToggleButton id="likeBtn" x="176" y="60" width="60" height="50" label="Like"/>
     <s:Button id="delBtn" x="244" y="60" width="60" height="50" label="Del"/>
-    <s:Button id="skipBtn" x="312" y="60" width="60" height="50" label="Skip"/>
+    <s:Button id="skipBtn" x="312" y="60" width="60" height="20" label="Shuffle"/>
+    <s:Button id="nextBtn" x="312" y="90" width="60" height="20" label="Next"/>
 
 </s:WindowedApplication>
 
