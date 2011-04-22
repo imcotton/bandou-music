@@ -52,6 +52,13 @@ public class PlayListService extends Actor implements IPlayListService
         this.loader.load(this.remoteModel.createNewChannelRequest($item));
     }
 
+    public function skip ():void
+    {
+        this.cancel();
+
+        this.loader.load(this.remoteModel.createSkipRequest());
+    }
+
     private function cancel ():void
     {
         if (!this.loader)

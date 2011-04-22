@@ -8,8 +8,8 @@ import com.imcotton.douban.music.mvcs.model.PlayListModel;
 import com.imcotton.douban.music.mvcs.model.RemoteModel;
 import com.imcotton.douban.music.mvcs.service.IPlayListService;
 import com.imcotton.douban.music.mvcs.service.PlayListService;
-import com.imcotton.douban.music.mvcs.view.AppViewWrapper;
 import com.imcotton.douban.music.mvcs.view.AppViewMediator;
+import com.imcotton.douban.music.mvcs.view.AppViewWrapper;
 
 import org.robotlegs.mvcs.Command;
 
@@ -28,7 +28,9 @@ public class StartupCommand extends Command
 
 
         this.commandMap.mapEvent(PlayListEvent.CHANGE_CHANNEL, PlayListCommand, PlayListEvent);
+        this.commandMap.mapEvent(PlayListEvent.RENEW_CHANNEL, PlayListCommand, PlayListEvent);
         this.commandMap.mapEvent(PlayListEvent.LIST_CHANGE, PlayListCommand, PlayListEvent);
+        this.commandMap.mapEvent(PlayListEvent.SKIP_NEXT, PlayListCommand, PlayListEvent);
 
 
         this.mediatorMap.mapView(AppViewWrapper, AppViewMediator);

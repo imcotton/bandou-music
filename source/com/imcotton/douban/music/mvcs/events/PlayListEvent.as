@@ -15,6 +15,7 @@ public class PlayListEvent extends Event
 
     public static const RENEW_CHANNEL:String = "renewChannel";
 
+    public static const SKIP_NEXT:String = "skipNext";
     public static const PLAY_NEXT:String = "playNext";
 
     public static const LIST_CHANGE:String = "listChange";

@@ -23,18 +23,12 @@ public class RemoteModel
     public function createRenewRequest ():URLRequest
     {
         var variables:Variables = new Variables()
-                .setType(TypeEnum.LIST_END)
+                .setType(TypeEnum.LIST_OUT)
                 .setSID(this.playListModel.current.sid)
                 .setHistory(null)
                 .setChannelID(this.channelModel.current.id);
 
-        var request:URLRequest = new URLRequest(PLAYLIST_URL);
-            request.data = variables.urlVarables;
-
-        variables.setSign(this.sign(request))
-                 .setMark();
-
-        return request;
+        return this.makeRequest(variables);
     }
 
     public function createNewChannelRequest ($item:ChannelItem):URLRequest
@@ -44,11 +38,27 @@ public class RemoteModel
                 .setHistory(null)
                 .setChannelID($item.id);
 
-        var request:URLRequest = new URLRequest(PLAYLIST_URL);
-            request.data = variables.urlVarables;
+        return this.makeRequest(variables);
+    }
 
-        variables.setSign(this.sign(request))
-                 .setMark();
+    public function createSkipRequest ():URLRequest
+    {
+        var variables:Variables = new Variables()
+                .setType(TypeEnum.SKIP_NEXT)
+                .setSID(this.playListModel.current.sid)
+                .setHistory(null)
+                .setChannelID(this.channelModel.current.id);
+
+        return this.makeRequest(variables);
+    }
+
+    private function makeRequest ($variables:Variables):URLRequest
+    {
+        var request:URLRequest = new URLRequest(PLAYLIST_URL);
+            request.data = $variables.urlVarables;
+
+        $variables.setSign(this.sign(request))
+                  .setMark();
 
         return request;
     }
@@ -77,8 +87,9 @@ import flash.net.URLVariables;
 class TypeEnum
 {
 
-    public static const LIST_END:String = "e";
+    public static const LIST_OUT:String = "p";
     public static const NEW_LIST:String = "n";
+    public static const SKIP_NEXT:String = "s";
 
 }
 
@@ -117,7 +128,7 @@ class Variables
 
     public function setSID ($sid:String):Variables
     {
-        this.urlVarables.s = $sid;
+        this.urlVarables.sid = $sid;
 
         return this;
     }

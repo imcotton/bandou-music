@@ -28,7 +28,7 @@
                value="80"/>
     <s:ToggleButton id="likeBtn" x="176" y="60" width="60" height="50" label="Like"/>
     <s:Button id="delBtn" x="244" y="60" width="60" height="50" label="Del"/>
-    <s:Button id="nextBtn" x="312" y="60" width="60" height="50" label="Next"/>
+    <s:Button id="skipBtn" x="312" y="60" width="60" height="50" label="Skip"/>
 
 </s:WindowedApplication>
 

@@ -34,6 +34,16 @@ public class PlayListCommand extends Command
                 this.playListService.switchChannel(this.channelEvent.channelItem);
                 break;
             }
+            case PlayListEvent.RENEW_CHANNEL:
+            {
+                this.playListService.renewChannel();
+                break;
+            }
+            case PlayListEvent.SKIP_NEXT:
+            {
+                this.playListService.skip();
+                break;
+            }
             case PlayListEvent.LIST_CHANGE:
             {
                 this.playListModel.next();

@@ -8,6 +8,7 @@ import com.imcotton.douban.music.mvcs.model.PlayListItem;
 import flash.events.Event;
 
 import mx.collections.ArrayList;
+import mx.events.FlexEvent;
 
 import org.osflash.signals.Signal;
 
@@ -26,6 +27,8 @@ public class AppViewWrapper
 
     public var channelSignal:Signal;
 
+    public var skipSignal:Signal;
+
     [PostConstruct]
     public function postConstruct ():void
     {
@@ -33,6 +36,8 @@ public class AppViewWrapper
             channelList.addEventListener(IndexChangeEvent.CHANGE, channelList_onChange);
             channelList.dataProvider = new ArrayList(this.channelModel.list);
             channelList.labelField = "name";
+
+        this.appView.skipBtn.addEventListener(FlexEvent.BUTTON_DOWN, skipBtn_onButtonDown);
     }
 
     public function AppViewWrapper ()
@@ -52,14 +57,20 @@ public class AppViewWrapper
         this.appView.authorText.text = $item.artistName;
     }
 
+    private function init ():void
+    {
+        this.channelSignal = new Signal(ChannelItem);
+        this.skipSignal = new Signal();
+    }
+
     private function channelList_onChange (event:Event):void
     {
         this.channelSignal.dispatch(this.appView.channelList.selectedItem);
     }
 
-    private function init ():void
+    private function skipBtn_onButtonDown (event:Event):void
     {
-        this.channelSignal = new Signal(ChannelItem);
+        this.skipSignal.dispatch();
     }
 
 }

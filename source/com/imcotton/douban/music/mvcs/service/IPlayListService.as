@@ -7,6 +7,7 @@ import com.imcotton.douban.music.mvcs.model.ChannelItem;
 public interface IPlayListService
 {
 
+    function skip ():void;
     function renewChannel ():void;
     function switchChannel (item:ChannelItem):void;
 
