@@ -1,4 +1,4 @@
-package com.imcotton.douban.music.mvcs.events
+package com.imcotton.douban.music.events
 {
 
 import com.imcotton.douban.music.mvcs.model.ChannelItem;

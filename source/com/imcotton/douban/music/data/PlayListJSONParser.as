@@ -1,4 +1,4 @@
-package com.imcotton.douban.music.mvcs.data
+package com.imcotton.douban.music.data
 {
 
 import com.imcotton.douban.music.mvcs.model.PlayListItem;

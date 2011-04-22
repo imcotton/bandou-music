@@ -1,7 +1,7 @@
 package com.imcotton.douban.music.mvcs.controller
 {
 
-import com.imcotton.douban.music.mvcs.events.PlayListEvent;
+import com.imcotton.douban.music.events.PlayListEvent;
 import com.imcotton.douban.music.mvcs.model.ChannelModel;
 
 import org.robotlegs.mvcs.Command;

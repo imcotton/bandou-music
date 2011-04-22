@@ -3,7 +3,7 @@ package com.imcotton.douban.music.mvcs.model
 
 import by.blooddy.crypto.serialization.JSON;
 
-import com.imcotton.douban.music.mvcs.events.PlayListEvent;
+import com.imcotton.douban.music.events.PlayListEvent;
 
 import flash.net.URLVariables;
 

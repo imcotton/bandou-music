@@ -3,7 +3,7 @@ package com.imcotton.douban.music.mvcs.service
 
 import by.blooddy.crypto.serialization.JSON;
 
-import com.imcotton.douban.music.mvcs.data.PlayListJSONParser;
+import com.imcotton.douban.music.data.PlayListJSONParser;
 import com.imcotton.douban.music.mvcs.model.ChannelItem;
 import com.imcotton.douban.music.mvcs.model.ChannelModel;
 import com.imcotton.douban.music.mvcs.model.PlayListModel;
