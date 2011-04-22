@@ -9,7 +9,7 @@ import flash.events.Event;
 import org.robotlegs.mvcs.Mediator;
 
 
-public class DoubanMusicMediator extends Mediator
+public class AppViewMediator extends Mediator
 {
 
     [Inject]
