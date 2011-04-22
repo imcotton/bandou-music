@@ -13,7 +13,7 @@ public class PlayListCommand extends Command
 {
 
     [Inject]
-    public var channelEvent:PlayListEvent;
+    public var event:PlayListEvent;
 
     [Inject]
     public var playListService:IPlayListService;
@@ -26,12 +26,12 @@ public class PlayListCommand extends Command
 
     override public function execute ():void
     {
-        switch (this.channelEvent.type)
+        switch (event.type)
         {
             case PlayListEvent.CHANGE_CHANNEL:
             {
-                this.channelModel.current = this.channelEvent.channelItem;
-                this.playListService.switchChannel(this.channelEvent.channelItem);
+                this.channelModel.current = this.event.channelItem;
+                this.playListService.switchChannel(this.event.channelItem);
                 break;
             }
             case PlayListEvent.RENEW_CHANNEL:
