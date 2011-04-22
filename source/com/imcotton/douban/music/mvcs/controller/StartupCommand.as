@@ -27,12 +27,12 @@ public class StartupCommand extends Command
 
         this.commandMap.mapEvent(PlayListEvent.CHANGE_CHANNEL, PlayListCommand, PlayListEvent);
         this.commandMap.mapEvent(PlayListEvent.LIST_CHANGE, PlayListCommand, PlayListEvent);
-        
+
 
         this.mediatorMap.mapView(AppViewWrapper, DoubanMusicMediator);
         this.mediatorMap.createMediator(this.injector.instantiate(AppViewWrapper));
 
-        
+
         this.commandMap.execute(ChannelSwitchCommand);
     }
 

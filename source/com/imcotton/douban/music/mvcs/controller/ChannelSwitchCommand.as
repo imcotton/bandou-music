@@ -12,15 +12,15 @@ public class ChannelSwitchCommand extends Command
 
     [Inject]
     public var channelModel:ChannelModel;
-    
+
     override public function execute ():void
     {
         var event:PlayListEvent = new PlayListEvent(PlayListEvent.CHANGE_CHANNEL);
             event.channelItem = this.channelModel.getItemByIndex(0);
-        
+
         this.dispatch(event);
     }
-    
+
 }
 }
 

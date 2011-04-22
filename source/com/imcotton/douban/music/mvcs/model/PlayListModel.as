@@ -39,9 +39,9 @@ public class PlayListModel extends Actor
     public function next ():void
     {
         this.index++;
-        
+
         var event:PlayListEvent;
-        
+
         if (this.index >= this.list.length)
         {
             this.index = -1;
@@ -52,7 +52,7 @@ public class PlayListModel extends Actor
             event = new PlayListEvent(PlayListEvent.PLAY_NEXT);
             event.playListItem = this.current;
         }
-        
+
         this.dispatch(event);
     }
 
