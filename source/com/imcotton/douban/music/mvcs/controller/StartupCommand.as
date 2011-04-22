@@ -1,6 +1,7 @@
 package com.imcotton.douban.music.mvcs.controller
 {
 
+import com.imcotton.douban.music.mvcs.data.PlayListJSONParser;
 import com.imcotton.douban.music.mvcs.events.PlayListEvent;
 import com.imcotton.douban.music.mvcs.model.ChannelModel;
 import com.imcotton.douban.music.mvcs.model.PlayListModel;
@@ -18,6 +19,7 @@ public class StartupCommand extends Command
 
     override public function execute ():void
     {
+        this.injector.mapSingleton(PlayListJSONParser);
         this.injector.mapSingleton(ChannelModel);
         this.injector.mapSingleton(PlayListModel);
         this.injector.mapSingleton(RemoteModel);

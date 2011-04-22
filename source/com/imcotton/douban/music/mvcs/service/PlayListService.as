@@ -1,6 +1,9 @@
 package com.imcotton.douban.music.mvcs.service
 {
 
+import by.blooddy.crypto.serialization.JSON;
+
+import com.imcotton.douban.music.mvcs.data.PlayListJSONParser;
 import com.imcotton.douban.music.mvcs.model.ChannelItem;
 import com.imcotton.douban.music.mvcs.model.ChannelModel;
 import com.imcotton.douban.music.mvcs.model.PlayListModel;
@@ -9,7 +12,6 @@ import com.imcotton.douban.music.mvcs.model.RemoteModel;
 import flash.events.Event;
 import flash.events.IOErrorEvent;
 import flash.net.URLLoader;
-import flash.net.URLRequest;
 
 import org.robotlegs.mvcs.Actor;
 
@@ -25,6 +27,9 @@ public class PlayListService extends Actor implements IPlayListService
 
     [Inject]
     public var playListModel:PlayListModel;
+
+    [Inject]
+    public var playListJSONParser:PlayListJSONParser;
 
     public function PlayListService ()
     {
@@ -75,7 +80,12 @@ public class PlayListService extends Actor implements IPlayListService
         {
             case Event.COMPLETE:
             {
-                trace(event.target.data);
+                var json:Object = JSON.decode(this.loader.data);
+                var arr:Array = json.song;
+
+                if (arr && arr.length)
+                    this.playListModel.update(this.playListJSONParser.parseJSON(arr));
+
                 break;
             }
             case IOErrorEvent.IO_ERROR:
