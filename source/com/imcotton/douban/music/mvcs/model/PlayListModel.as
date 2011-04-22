@@ -14,7 +14,7 @@ public class PlayListModel extends Actor
         this.init();
     }
 
-    private var index:int = -1;
+    private var index:int;
 
     private var _list:Vector.<PlayListItem>;
 
@@ -58,6 +58,8 @@ public class PlayListModel extends Actor
 
     private function init ():void
     {
+        this.index = -1;
+        this._list = new Vector.<PlayListItem>();
     }
 
 }
