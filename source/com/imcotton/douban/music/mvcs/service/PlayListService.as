@@ -33,11 +33,6 @@ public class PlayListService extends Actor implements IPlayListService
 
     private var loader:URLLoader;
 
-    private function get request ():URLRequest
-    {
-        return null;
-    }
-
     public function renewChannel ():void
     {
         this.cancel();
