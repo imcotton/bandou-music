@@ -3,6 +3,7 @@ package com.imcotton.douban.music.mvcs.view
 
 import com.imcotton.douban.music.mvcs.model.ChannelItem;
 import com.imcotton.douban.music.mvcs.model.ChannelModel;
+import com.imcotton.douban.music.mvcs.model.PlayListItem;
 
 import flash.events.Event;
 
@@ -42,6 +43,13 @@ public class AppViewWrapper
     public function changeChannelItem ($item:ChannelItem):void
     {
         this.appView.channelList.selectedItem = $item;
+    }
+
+    public function changeItem ($item:PlayListItem):void
+    {
+        this.appView.image.source = $item.albumCoverURL;
+        this.appView.titleText.text = $item.songName + " - " + $item.albumName;
+        this.appView.authorText.text = $item.artistName;
     }
 
     private function channelList_onChange (event:Event):void
