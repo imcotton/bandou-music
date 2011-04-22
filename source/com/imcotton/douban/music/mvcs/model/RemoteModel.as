@@ -65,6 +65,8 @@ public class RemoteModel
 
     private function sign ($request:URLRequest):String
     {
+        //  TODO: order sensitivity of GET parameter, maybe???
+
         var url:String =
         [
             $request.url,
