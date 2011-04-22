@@ -20,9 +20,9 @@
     <mx:Image id="image" x="10" y="10" width="120" height="120"/>
     <s:Label id="timeText" x="10" y="138" width="120" color="#474747" fontWeight="bold"
              textAlign="center"/>
-    <s:Label id="titleText" x="10.5" y="165.5" width="380" color="#630000" fontFamily="Verdana"
+    <s:Label id="titleText" x="10" y="164" width="380" color="#630000" fontFamily="Verdana"
              fontSize="13" fontWeight="normal" textAlign="left"/>
-    <s:Label id="authorText" x="10.5" y="180" width="380" color="#000000" fontFamily="Arial"
+    <s:Label id="authorText" x="10" y="180" width="380" color="#000000" fontFamily="Arial"
              fontSize="12" fontWeight="bold" textAlign="right"/>
     <s:VSlider id="volumeBar" x="138" y="10" height="120" maximum="100" minimum="0" stepSize="1"
                value="80"/>
