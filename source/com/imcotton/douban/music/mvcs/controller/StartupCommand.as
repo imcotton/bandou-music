@@ -7,7 +7,9 @@ import com.imcotton.douban.music.mvcs.model.ChannelModel;
 import com.imcotton.douban.music.mvcs.model.PlayListModel;
 import com.imcotton.douban.music.mvcs.model.RemoteModel;
 import com.imcotton.douban.music.mvcs.service.IPlayListService;
+import com.imcotton.douban.music.mvcs.service.IRadioService;
 import com.imcotton.douban.music.mvcs.service.PlayListService;
+import com.imcotton.douban.music.mvcs.service.RadioService;
 import com.imcotton.douban.music.mvcs.view.AppViewMediator;
 import com.imcotton.douban.music.mvcs.view.AppViewWrapper;
 
@@ -24,6 +26,7 @@ public class StartupCommand extends Command
         this.injector.mapSingleton(PlayListModel);
         this.injector.mapSingleton(RemoteModel);
         this.injector.mapSingletonOf(IPlayListService, PlayListService);
+        this.injector.mapSingletonOf(IRadioService, RadioService);
         this.injector.mapValue(DoubanMusic, this.contextView);
 
 
@@ -31,6 +34,8 @@ public class StartupCommand extends Command
         this.commandMap.mapEvent(PlayListEvent.RENEW_CHANNEL, PlayListCommand, PlayListEvent);
         this.commandMap.mapEvent(PlayListEvent.LIST_CHANGE, PlayListCommand, PlayListEvent);
         this.commandMap.mapEvent(PlayListEvent.SKIP_NEXT, PlayListCommand, PlayListEvent);
+
+        this.commandMap.mapEvent(PlayListEvent.PLAY_NEXT, RadioServiceCommand, PlayListEvent);
 
 
         this.mediatorMap.mapView(AppViewWrapper, AppViewMediator);
