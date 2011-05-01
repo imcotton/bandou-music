@@ -28,6 +28,7 @@ public class AppViewWrapper
     public var channelSignal:Signal;
     public var skipSignal:Signal;
     public var nextSignal:Signal;
+    public var volumeSignal:Signal;
 
     [PostConstruct]
     public function postConstruct ():void
@@ -37,6 +38,8 @@ public class AppViewWrapper
             channelList.dataProvider = new ArrayList(this.channelModel.list);
             channelList.labelField = "name";
 
+        this.appView.volumeBar.addEventListener(Event.CHANGE, volumeBar_onChange);
+            
         this.appView.skipBtn.addEventListener(FlexEvent.BUTTON_DOWN, skipBtn_onButtonDown);
         this.appView.nextBtn.addEventListener(FlexEvent.BUTTON_DOWN, nextBtn_onButtonDown);
     }
@@ -63,6 +66,7 @@ public class AppViewWrapper
         this.channelSignal = new Signal(ChannelItem);
         this.skipSignal = new Signal();
         this.nextSignal = new Signal();
+        this.volumeSignal = new Signal(Number);
     }
 
     private function channelList_onChange (event:Event):void
@@ -79,7 +83,12 @@ public class AppViewWrapper
     {
         this.nextSignal.dispatch();
     }
-
+    
+    private function volumeBar_onChange (event:Event):void
+    {
+        this.volumeSignal.dispatch(this.appView.volumeBar.value / 100);
+    }
+    
 }
 }
 

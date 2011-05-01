@@ -4,6 +4,7 @@ package com.imcotton.douban.music.mvcs.view
 import com.imcotton.douban.music.events.PlayListEvent;
 import com.imcotton.douban.music.mvcs.model.ChannelItem;
 import com.imcotton.douban.music.mvcs.model.PlayListModel;
+import com.imcotton.douban.music.mvcs.service.IRadioService;
 
 import flash.events.Event;
 
@@ -19,16 +20,25 @@ public class AppViewMediator extends Mediator
     [Inject]
     public var playListModel:PlayListModel;
 
+    [Inject]
+    public var radioService:IRadioService;
+
     override public function onRegister ():void
     {
         this.view.channelSignal.add(onChannel);
         this.view.skipSignal.add(onSkip);
         this.view.nextSignal.add(onNext);
+        this.view.volumeSignal.add(onVolume);
 
         this.addContextListener(PlayListEvent.CHANNEL_CHANGE, onContextEvent);
         this.addContextListener(PlayListEvent.PLAY_NEXT, onContextEvent);
     }
-
+    
+    private function onVolume ($value:Number):void
+    {
+        this.radioService.volume = $value;
+    }
+    
     private function onChannel ($item:ChannelItem):void
     {
         var event:PlayListEvent = new PlayListEvent(PlayListEvent.CHANGE_CHANNEL);
