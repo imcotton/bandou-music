@@ -52,12 +52,12 @@ public class RadioService extends Actor implements IRadioService
 
     public function get repeat ():Boolean
     {
-        return false;
+        return this.player.autoRewind;
     }
 
     public function set repeat ($value:Boolean):void
     {
-
+        this.player.autoRewind = $value;
     }
 
     public function get volume ():Number
@@ -85,14 +85,14 @@ public class RadioService extends Actor implements IRadioService
         this.element.resource = new URLResource(new URL($url));
     }
 
-    public function pause ():Boolean
+    public function pause ():void
     {
-        return false;
+        this.player.pause();
     }
 
-    public function play ():Boolean
+    public function play ():void
     {
-        return false;
+        this.player.play();
     }
 
     private function init ():void
