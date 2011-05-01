@@ -62,11 +62,12 @@ public class RadioService extends Actor implements IRadioService
 
     public function get volume ():Number
     {
-        return 0;
+        return this.player.volume;
     }
 
     public function set volume ($value:Number):void
     {
+        this.player.volume = $value;
     }
 
     public function load ($url:String):void
