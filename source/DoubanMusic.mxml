@@ -26,8 +26,10 @@
              fontSize="12" fontWeight="bold" textAlign="right"/>
     <s:VSlider id="volumeBar" x="138" y="10" height="120" maximum="100" minimum="0" stepSize="1"
                value="80"/>
-    <s:ToggleButton id="likeBtn" x="176" y="60" width="60" height="50" label="Like"/>
-    <s:Button id="delBtn" x="244" y="60" width="60" height="50" label="Del"/>
+    <s:ToggleButton id="likeBtn" x="244" y="90" width="60" height="20" label="Like"/>
+    <s:ToggleButton id="triggerBtn" x="176" y="90" width="60" height="20" label="pause"/>
+    <s:ToggleButton id="repeatBtn" x="176" y="60" width="60" height="20" label="repeat"/>
+    <s:Button id="delBtn" x="244" y="60" width="60" height="20" label="Del"/>
     <s:Button id="skipBtn" x="312" y="60" width="60" height="20" label="Shuffle"/>
     <s:Button id="nextBtn" x="312" y="90" width="60" height="20" label="Next"/>
 

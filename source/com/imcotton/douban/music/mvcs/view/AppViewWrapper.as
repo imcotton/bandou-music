@@ -29,6 +29,8 @@ public class AppViewWrapper
     public var skipSignal:Signal;
     public var nextSignal:Signal;
     public var volumeSignal:Signal;
+    public var repeatSignal:Signal;
+    public var triggerSignal:Signal;
 
     [PostConstruct]
     public function postConstruct ():void
@@ -39,6 +41,9 @@ public class AppViewWrapper
             channelList.labelField = "name";
 
         this.appView.volumeBar.addEventListener(Event.CHANGE, volumeBar_onChange);
+        
+        this.appView.triggerBtn.addEventListener(Event.CHANGE, triggerBtn_onChange);
+        this.appView.repeatBtn.addEventListener(Event.CHANGE, repeatBtn_onChange);
             
         this.appView.skipBtn.addEventListener(FlexEvent.BUTTON_DOWN, skipBtn_onButtonDown);
         this.appView.nextBtn.addEventListener(FlexEvent.BUTTON_DOWN, nextBtn_onButtonDown);
@@ -67,6 +72,8 @@ public class AppViewWrapper
         this.skipSignal = new Signal();
         this.nextSignal = new Signal();
         this.volumeSignal = new Signal(Number);
+        this.triggerSignal = new Signal(Boolean);
+        this.repeatSignal = new Signal(Boolean);
     }
 
     private function channelList_onChange (event:Event):void
@@ -87,6 +94,16 @@ public class AppViewWrapper
     private function volumeBar_onChange (event:Event):void
     {
         this.volumeSignal.dispatch(this.appView.volumeBar.value / 100);
+    }
+    
+    private function triggerBtn_onChange (event:Event):void
+    {
+        this.triggerSignal.dispatch(this.appView.triggerBtn.selected);
+    }
+    
+    private function repeatBtn_onChange (event:Event):void
+    {
+        this.repeatSignal.dispatch(this.appView.repeatBtn.selected);
     }
     
 }

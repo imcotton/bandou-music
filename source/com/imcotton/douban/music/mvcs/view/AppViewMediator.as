@@ -29,9 +29,24 @@ public class AppViewMediator extends Mediator
         this.view.skipSignal.add(onSkip);
         this.view.nextSignal.add(onNext);
         this.view.volumeSignal.add(onVolume);
+        this.view.triggerSignal.add(onTrigger);
+        this.view.repeatSignal.add(onRepeat);
 
         this.addContextListener(PlayListEvent.CHANNEL_CHANGE, onContextEvent);
         this.addContextListener(PlayListEvent.PLAY_NEXT, onContextEvent);
+    }
+    
+    private function onRepeat ($isRepeat:Boolean):void
+    {
+        this.radioService.repeat = $isRepeat;
+    }
+    
+    private function onTrigger ($isPause:Boolean):void
+    {
+        if ($isPause)
+            this.radioService.pause();
+        else
+            this.radioService.play();
     }
     
     private function onVolume ($value:Number):void
