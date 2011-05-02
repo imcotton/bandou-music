@@ -6,8 +6,8 @@ public interface IRadioService
 
     function load (url:String):void;
 
-    function pause ():Boolean;
-    function play ():Boolean;
+    function pause ():void;
+    function play ():void;
 
     function get repeat ():Boolean;
     function set repeat (value:Boolean):void;
