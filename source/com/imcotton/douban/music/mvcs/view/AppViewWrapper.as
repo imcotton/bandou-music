@@ -64,6 +64,7 @@ public class AppViewWrapper
         this.appView.image.source = $item.albumCoverURL;
         this.appView.titleText.text = $item.songName + " - " + $item.albumName;
         this.appView.authorText.text = $item.artistName;
+        this.appView.triggerBtn.selected = this.appView.repeatBtn.selected = false;
     }
 
     public function updateTimer ($current:Number, $duration:Number):void
