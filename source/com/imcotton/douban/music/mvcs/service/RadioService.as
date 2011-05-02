@@ -2,16 +2,18 @@ package com.imcotton.douban.music.mvcs.service
 {
 
 import com.imcotton.douban.music.mvcs.model.IRadioSignalEnum;
+import com.imcotton.douban.music.mvcs.model.PlayListModel;
 
 import flash.media.Sound;
 import flash.net.URLRequest;
 import flash.net.URLRequestHeader;
-import flash.utils.setInterval;
 
 import org.osflash.signals.Signal;
 import org.osmf.audio.AudioElement;
 import org.osmf.audio.SoundLoader;
 import org.osmf.display.MediaElementSprite;
+import org.osmf.events.LoadEvent;
+import org.osmf.events.TimeEvent;
 import org.osmf.media.MediaPlayer;
 import org.osmf.media.URLResource;
 import org.osmf.traits.ILoadable;
@@ -27,6 +29,9 @@ public class RadioService extends Actor implements IRadioService
 
     [Inject]
     public var contextInjector:IInjector;
+
+    [Inject]
+    public var playListModel:PlayListModel;
 
     public function RadioService ()
     {
@@ -74,9 +79,9 @@ public class RadioService extends Actor implements IRadioService
     {
         if (!$url)
             return;
-        
+
         var loadable:ILoadable = this.element.getTrait(MediaTraitType.LOADABLE) as ILoadable;
-            
+
         if (this.element.resource && loadable)
             this.loader.unload(loadable);
 
@@ -100,21 +105,48 @@ public class RadioService extends Actor implements IRadioService
             inject.mapValue(Signal, new Signal(Number, Number, Number), "play");
 
         this.radioSignalEmun = inject.instantiate(RadioSignalEnum);
-        
+
         var request:URLRequest = new URLRequest();
             request.requestHeaders = [new URLRequestHeader("Referer", "http://www.douban.com")];
-            
+
         this.loader = new SoundLoader(request);
         this.element = new AudioElement(this.loader);
-        
+
         this.player = new MediaPlayer(this.element);
         this.player.volume = 0.8;
         this.player.bufferTime = 2;
-        
-        setInterval(function ():void
-        {
-            trace(int(player.currentTime / player.duration * 100));
-        }, 1000);
+        this.player.autoRewind = true;
+        this.player.loop = false;
+
+        this.player.addEventListener(LoadEvent.BYTES_LOADED_CHANGE, player_onLoading);
+        this.player.addEventListener(TimeEvent.CURRENT_TIME_CHANGE, player_onTimeChange);
+        this.player.addEventListener(TimeEvent.COMPLETE, player_onComplete);
+    }
+
+    private function player_onTimeChange (event:TimeEvent):void
+    {
+        this.radioSignalEmun._playProgressSignal.dispatch
+        (
+            this.player.currentTime / this.player.duration,
+            this.player.currentTime,
+            this.player.duration
+        );
+    }
+
+    private function player_onLoading (event:LoadEvent):void
+    {
+        this.radioSignalEmun._loadProgressSignal.dispatch
+        (
+            this.player.bytesLoaded / this.player.bytesTotal,
+            this.player.bytesLoaded,
+            this.player.bytesTotal
+        );
+    }
+
+    private function player_onComplete (event:TimeEvent):void
+    {
+        if (!this.player.loop)
+            this.playListModel.next();
     }
 
 }
