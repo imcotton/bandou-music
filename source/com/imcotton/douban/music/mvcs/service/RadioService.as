@@ -52,12 +52,12 @@ public class RadioService extends Actor implements IRadioService
 
     public function get repeat ():Boolean
     {
-        return this.player.autoRewind;
+        return this.player.loop;
     }
 
     public function set repeat ($value:Boolean):void
     {
-        this.player.autoRewind = $value;
+        this.player.loop = $value;
     }
 
     public function get volume ():Number
@@ -74,8 +74,6 @@ public class RadioService extends Actor implements IRadioService
     {
         if (!$url)
             return;
-        
-        trace($url);
         
         var loadable:ILoadable = this.element.getTrait(MediaTraitType.LOADABLE) as ILoadable;
             
@@ -99,7 +97,7 @@ public class RadioService extends Actor implements IRadioService
     {
         var inject:Injector = new Injector();
             inject.mapValue(Signal, new Signal(Number, int, int), "load");
-            inject.mapValue(Signal, new Signal(Number, int, int), "play");
+            inject.mapValue(Signal, new Signal(Number, Number, Number), "play");
 
         this.radioSignalEmun = inject.instantiate(RadioSignalEnum);
         
