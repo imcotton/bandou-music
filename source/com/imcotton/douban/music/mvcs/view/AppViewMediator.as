@@ -3,6 +3,7 @@ package com.imcotton.douban.music.mvcs.view
 
 import com.imcotton.douban.music.events.PlayListEvent;
 import com.imcotton.douban.music.mvcs.model.ChannelItem;
+import com.imcotton.douban.music.mvcs.model.IRadioSignalEnum;
 import com.imcotton.douban.music.mvcs.model.PlayListModel;
 import com.imcotton.douban.music.mvcs.service.IRadioService;
 
@@ -23,6 +24,9 @@ public class AppViewMediator extends Mediator
     [Inject]
     public var radioService:IRadioService;
 
+    [Inject]
+    public var radioSignalEnum:IRadioSignalEnum;
+
     override public function onRegister ():void
     {
         this.view.channelSignal.add(onChannel);
@@ -32,15 +36,22 @@ public class AppViewMediator extends Mediator
         this.view.triggerSignal.add(onTrigger);
         this.view.repeatSignal.add(onRepeat);
 
+        this.radioSignalEnum.playProgressSignal.add(onPlaying);
+
         this.addContextListener(PlayListEvent.CHANNEL_CHANGE, onContextEvent);
         this.addContextListener(PlayListEvent.PLAY_NEXT, onContextEvent);
     }
-    
+
+    private function onPlaying ($rate:Number, $current:Number, $duration:Number):void
+    {
+        this.view.updateTimer($current, $duration);
+    }
+
     private function onRepeat ($isRepeat:Boolean):void
     {
         this.radioService.repeat = $isRepeat;
     }
-    
+
     private function onTrigger ($isPause:Boolean):void
     {
         if ($isPause)
@@ -48,12 +59,12 @@ public class AppViewMediator extends Mediator
         else
             this.radioService.play();
     }
-    
+
     private function onVolume ($value:Number):void
     {
         this.radioService.volume = $value;
     }
-    
+
     private function onChannel ($item:ChannelItem):void
     {
         var event:PlayListEvent = new PlayListEvent(PlayListEvent.CHANGE_CHANNEL);

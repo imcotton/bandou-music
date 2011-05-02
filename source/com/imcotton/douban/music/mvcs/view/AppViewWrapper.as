@@ -41,10 +41,10 @@ public class AppViewWrapper
             channelList.labelField = "name";
 
         this.appView.volumeBar.addEventListener(Event.CHANGE, volumeBar_onChange);
-        
+
         this.appView.triggerBtn.addEventListener(Event.CHANGE, triggerBtn_onChange);
         this.appView.repeatBtn.addEventListener(Event.CHANGE, repeatBtn_onChange);
-            
+
         this.appView.skipBtn.addEventListener(FlexEvent.BUTTON_DOWN, skipBtn_onButtonDown);
         this.appView.nextBtn.addEventListener(FlexEvent.BUTTON_DOWN, nextBtn_onButtonDown);
     }
@@ -64,6 +64,16 @@ public class AppViewWrapper
         this.appView.image.source = $item.albumCoverURL;
         this.appView.titleText.text = $item.songName + " - " + $item.albumName;
         this.appView.authorText.text = $item.artistName;
+    }
+
+    public function updateTimer ($current:Number, $duration:Number):void
+    {
+        var arr:Array = [$current, $duration];
+
+        for (var i:String in arr)
+            arr[i] = NumberFormat.s2m(arr[i]);
+
+        this.appView.timeText.text = arr.join(" / ");
     }
 
     private function init ():void
@@ -90,22 +100,44 @@ public class AppViewWrapper
     {
         this.nextSignal.dispatch();
     }
-    
+
     private function volumeBar_onChange (event:Event):void
     {
         this.volumeSignal.dispatch(this.appView.volumeBar.value / 100);
     }
-    
+
     private function triggerBtn_onChange (event:Event):void
     {
         this.triggerSignal.dispatch(this.appView.triggerBtn.selected);
     }
-    
+
     private function repeatBtn_onChange (event:Event):void
     {
         this.repeatSignal.dispatch(this.appView.repeatBtn.selected);
     }
-    
+
 }
+}
+
+
+
+class NumberFormat
+{
+    public static function s2m ($s:Number):String
+    {
+        return addLeadingZero(int($s / 60), 2) + ":" + addLeadingZero(($s % 60), 2);
+    }
+    
+    public static function addLeadingZero ($n:Number, $d:Number):String
+    {
+        var t:String = "";
+        var i:Number = int(Math.log($n) * Math.LOG10E) + 1;
+        
+        if ((i = ($d - i)) > 0)
+            while (i--)
+                t += '0';
+        
+        return t + $n;
+    }
 }
 
