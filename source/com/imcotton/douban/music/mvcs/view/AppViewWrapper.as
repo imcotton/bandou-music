@@ -71,7 +71,7 @@ public class AppViewWrapper
         var arr:Array = [$current, $duration];
 
         for (var i:String in arr)
-            arr[i] = NumberFormat.s2m(arr[i]);
+            arr[i] = NumberFormat.s2m(int(arr[i] + 0.50));
 
         this.appView.timeText.text = arr.join(" / ");
     }
