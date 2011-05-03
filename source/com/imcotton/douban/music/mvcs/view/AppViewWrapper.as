@@ -6,9 +6,9 @@ import com.imcotton.douban.music.mvcs.model.ChannelModel;
 import com.imcotton.douban.music.mvcs.model.PlayListItem;
 
 import flash.events.Event;
+import flash.events.MouseEvent;
 
 import mx.collections.ArrayList;
-import mx.events.FlexEvent;
 
 import org.osflash.signals.Signal;
 
@@ -45,8 +45,8 @@ public class AppViewWrapper
         this.appView.triggerBtn.addEventListener(Event.CHANGE, triggerBtn_onChange);
         this.appView.repeatBtn.addEventListener(Event.CHANGE, repeatBtn_onChange);
 
-        this.appView.skipBtn.addEventListener(FlexEvent.BUTTON_DOWN, skipBtn_onButtonDown);
-        this.appView.nextBtn.addEventListener(FlexEvent.BUTTON_DOWN, nextBtn_onButtonDown);
+        this.appView.skipBtn.addEventListener(MouseEvent.CLICK, skipBtn_onButtonDown);
+        this.appView.nextBtn.addEventListener(MouseEvent.CLICK, nextBtn_onButtonDown);
     }
 
     public function AppViewWrapper ()
