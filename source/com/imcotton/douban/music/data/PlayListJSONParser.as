@@ -16,6 +16,7 @@ public class PlayListJSONParser
         {
             item = new PlayListItem();
 
+            item.aid = i.aid;
             item.sid = i.sid;
             item.artistName = i.artist;
 

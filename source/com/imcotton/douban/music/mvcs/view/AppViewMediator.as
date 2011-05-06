@@ -5,9 +5,11 @@ import com.imcotton.douban.music.events.PlayListEvent;
 import com.imcotton.douban.music.mvcs.model.ChannelItem;
 import com.imcotton.douban.music.mvcs.model.IRadioSignalEnum;
 import com.imcotton.douban.music.mvcs.model.PlayListModel;
+import com.imcotton.douban.music.mvcs.model.RemoteModel;
 import com.imcotton.douban.music.mvcs.service.IRadioService;
 
 import flash.events.Event;
+import flash.net.navigateToURL;
 
 import org.robotlegs.mvcs.Mediator;
 
@@ -27,6 +29,9 @@ public class AppViewMediator extends Mediator
     [Inject]
     public var radioSignalEnum:IRadioSignalEnum;
 
+    [Inject]
+    public var remoteModel:RemoteModel;
+
     override public function onRegister ():void
     {
         this.view.channelSignal.add(onChannel);
@@ -35,11 +40,17 @@ public class AppViewMediator extends Mediator
         this.view.volumeSignal.add(onVolume);
         this.view.triggerSignal.add(onTrigger);
         this.view.repeatSignal.add(onRepeat);
+        this.view.backSiteSignal.add(onBackSite);
 
         this.radioSignalEnum.playProgressSignal.add(onPlaying);
 
         this.addContextListener(PlayListEvent.CHANNEL_CHANGE, onContextEvent);
         this.addContextListener(PlayListEvent.PLAY_NEXT, onContextEvent);
+    }
+
+    private function onBackSite ():void
+    {
+        navigateToURL(this.remoteModel.createAlbumSiteRequest());
     }
 
     private function onPlaying ($rate:Number, $current:Number, $duration:Number):void

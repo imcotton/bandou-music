@@ -31,6 +31,7 @@ public class AppViewWrapper
     public var volumeSignal:Signal;
     public var repeatSignal:Signal;
     public var triggerSignal:Signal;
+    public var backSiteSignal:Signal;
 
     [PostConstruct]
     public function postConstruct ():void
@@ -39,6 +40,8 @@ public class AppViewWrapper
             channelList.addEventListener(IndexChangeEvent.CHANGE, channelList_onChange);
             channelList.dataProvider = new ArrayList(this.channelModel.list);
             channelList.labelField = "name";
+
+        this.appView.image.addEventListener(MouseEvent.CLICK, image_onClick);
 
         this.appView.volumeBar.addEventListener(Event.CHANGE, volumeBar_onChange);
 
@@ -85,6 +88,7 @@ public class AppViewWrapper
         this.volumeSignal = new Signal(Number);
         this.triggerSignal = new Signal(Boolean);
         this.repeatSignal = new Signal(Boolean);
+        this.backSiteSignal = new Signal();
     }
 
     private function channelList_onChange (event:Event):void
@@ -117,6 +121,11 @@ public class AppViewWrapper
         this.repeatSignal.dispatch(this.appView.repeatBtn.selected);
     }
 
+    private function image_onClick (event:MouseEvent):void
+    {
+        this.backSiteSignal.dispatch();
+    }
+
 }
 }
 
@@ -128,16 +137,16 @@ class NumberFormat
     {
         return addLeadingZero(int($s / 60), 2) + ":" + addLeadingZero(($s % 60), 2);
     }
-    
+
     public static function addLeadingZero ($n:Number, $d:Number):String
     {
         var t:String = "";
         var i:Number = int(Math.log($n) * Math.LOG10E) + 1;
-        
+
         if ((i = ($d - i)) > 0)
             while (i--)
                 t += '0';
-        
+
         return t + $n;
     }
 }

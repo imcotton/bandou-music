@@ -7,6 +7,7 @@ import mx.utils.ObjectUtil;
 public class PlayListItem
 {
 
+    public var aid:String;
     public var sid:String;
 
     public var artistName:String;

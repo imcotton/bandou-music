@@ -17,7 +17,7 @@
     </fx:Declarations>
 
     <s:DropDownList id="channelList" x="270" y="10" width="120"/>
-    <mx:Image id="image" x="10" y="10" width="120" height="120"/>
+    <mx:Image id="image" x="10" y="10" width="120" height="120" buttonMode="true"/>
     <s:Label id="timeText" x="10" y="138" width="120" color="#474747" fontWeight="bold"
              textAlign="center"/>
     <s:Label id="titleText" x="10" y="164" width="380" color="#630000" fontFamily="Verdana"

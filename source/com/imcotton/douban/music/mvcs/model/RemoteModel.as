@@ -52,6 +52,17 @@ public class RemoteModel
         return this.makeRequest(variables);
     }
 
+    public function createAlbumSiteRequest ():URLRequest
+    {
+        return new URLRequest
+        (
+            [
+                "http://music.douban.com/subject/",
+                this.playListModel.current.aid,
+            ].join("")
+        );
+    }
+
     private function makeRequest ($variables:Variables):URLRequest
     {
         var request:URLRequest = new URLRequest(PLAYLIST_URL);
