@@ -10,7 +10,7 @@ import flash.net.URLVariables;
 public class RemoteModel
 {
 
-    private static const PLAYLIST_URL:String = "http://douban.fm//j/mine/playlist";
+    private static const PLAYLIST_URL:String = "http://douban.fm/j/mine/playlist";
 
     private static const SIGN_KEY:String = "fr0d0";
 
