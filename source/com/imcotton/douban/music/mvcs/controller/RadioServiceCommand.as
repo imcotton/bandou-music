@@ -19,7 +19,11 @@ public class RadioServiceCommand extends Command
     override public function execute ():void
     {
         this.radioService.repeat = false;
-        this.radioService.load(this.playListEvent.playListItem.songURL);
+        this.radioService.load
+        (
+            this.playListEvent.playListItem.songURL,
+            this.playListEvent.playListItem.songDuration
+        );
     }
 
 }

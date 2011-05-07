@@ -4,7 +4,7 @@ package com.imcotton.douban.music.mvcs.service
 public interface IRadioService
 {
 
-    function load (url:String):void;
+    function load (url:String, duration:Number = NaN):void;
 
     function pause ():void;
     function play ():void;

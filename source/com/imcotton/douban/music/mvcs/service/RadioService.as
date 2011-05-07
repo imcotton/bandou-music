@@ -71,7 +71,7 @@ public class RadioService extends Actor implements IRadioService
         this.player.volume = $value;
     }
 
-    public function load ($url:String):void
+    public function load ($url:String, $duration:Number = NaN):void
     {
         if (!$url)
             return;
@@ -82,6 +82,9 @@ public class RadioService extends Actor implements IRadioService
             this.loader.unload(loadable);
 
         this.element.resource = new URLResource($url);
+
+        if ($duration)
+            this.element.defaultDuration = $duration;
     }
 
     public function pause ():void
