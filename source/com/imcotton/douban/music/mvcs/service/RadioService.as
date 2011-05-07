@@ -9,16 +9,14 @@ import flash.net.URLRequest;
 import flash.net.URLRequestHeader;
 
 import org.osflash.signals.Signal;
-import org.osmf.audio.AudioElement;
-import org.osmf.audio.SoundLoader;
-import org.osmf.display.MediaElementSprite;
+import org.osmf.elements.AudioElement;
+import org.osmf.elements.SoundLoader;
 import org.osmf.events.LoadEvent;
 import org.osmf.events.TimeEvent;
 import org.osmf.media.MediaPlayer;
 import org.osmf.media.URLResource;
-import org.osmf.traits.ILoadable;
+import org.osmf.traits.LoadTrait;
 import org.osmf.traits.MediaTraitType;
-import org.osmf.utils.URL;
 import org.robotlegs.core.IInjector;
 import org.robotlegs.mvcs.Actor;
 import org.swiftsuspenders.Injector;
@@ -53,8 +51,6 @@ public class RadioService extends Actor implements IRadioService
 
     private var player:MediaPlayer;
 
-    private var mediaElementSprite:MediaElementSprite;
-
     public function get repeat ():Boolean
     {
         return this.player.loop;
@@ -80,12 +76,12 @@ public class RadioService extends Actor implements IRadioService
         if (!$url)
             return;
 
-        var loadable:ILoadable = this.element.getTrait(MediaTraitType.LOADABLE) as ILoadable;
+        var loadable:LoadTrait = this.element.getTrait(MediaTraitType.LOAD) as LoadTrait;
 
         if (this.element.resource && loadable)
             this.loader.unload(loadable);
 
-        this.element.resource = new URLResource(new URL($url));
+        this.element.resource = new URLResource($url);
     }
 
     public function pause ():void
@@ -109,8 +105,10 @@ public class RadioService extends Actor implements IRadioService
         var request:URLRequest = new URLRequest();
             request.requestHeaders = [new URLRequestHeader("Referer", "http://www.douban.com")];
 
-        this.loader = new SoundLoader(request);
-        this.element = new AudioElement(this.loader);
+        this.loader = new SoundLoader();
+        this.loader.urlRequest = request;
+
+        this.element = new AudioElement(null, this.loader);
 
         this.player = new MediaPlayer(this.element);
         this.player.volume = 0.8;
