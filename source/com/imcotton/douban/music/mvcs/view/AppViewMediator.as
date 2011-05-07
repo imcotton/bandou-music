@@ -1,8 +1,10 @@
 package com.imcotton.douban.music.mvcs.view
 {
 
+import com.imcotton.douban.music.events.ChannelEvent;
 import com.imcotton.douban.music.events.PlayListEvent;
 import com.imcotton.douban.music.mvcs.model.ChannelItem;
+import com.imcotton.douban.music.mvcs.model.IChannelModel;
 import com.imcotton.douban.music.mvcs.model.IRadioSignalEnum;
 import com.imcotton.douban.music.mvcs.model.PlayListModel;
 import com.imcotton.douban.music.mvcs.model.RemoteModel;
@@ -32,6 +34,9 @@ public class AppViewMediator extends Mediator
     [Inject]
     public var remoteModel:RemoteModel;
 
+    [Inject]
+    public var channelMode:IChannelModel;
+
     override public function onRegister ():void
     {
         this.view.channelSignal.add(onChannel);
@@ -44,7 +49,8 @@ public class AppViewMediator extends Mediator
 
         this.radioSignalEnum.playProgressSignal.add(onPlaying);
 
-        this.addContextListener(PlayListEvent.CHANNEL_CHANGE, onContextEvent);
+        this.addContextListener(ChannelEvent.LIST_UPDATE, onContextEvent);
+        this.addContextListener(ChannelEvent.CHANNEL_UPDATE, onContextEvent);
         this.addContextListener(PlayListEvent.PLAY_NEXT, onContextEvent);
     }
 
@@ -78,10 +84,7 @@ public class AppViewMediator extends Mediator
 
     private function onChannel ($item:ChannelItem):void
     {
-        var event:PlayListEvent = new PlayListEvent(PlayListEvent.CHANGE_CHANNEL);
-            event.channelItem = $item;
-
-        this.dispatch(event);
+        this.channelMode.current = $item;
     }
 
     private function onSkip ():void
@@ -96,18 +99,21 @@ public class AppViewMediator extends Mediator
 
     private function onContextEvent (event:Event):void
     {
-        var playListEvent:PlayListEvent = event as PlayListEvent;
-
         switch (event.type)
         {
-            case PlayListEvent.CHANNEL_CHANGE:
+            case ChannelEvent.LIST_UPDATE:
             {
-                this.view.changeChannelItem(playListEvent.channelItem);
+                this.view.updateChannelList();
+                break;
+            }
+            case ChannelEvent.CHANNEL_UPDATE:
+            {
+                this.view.changeChannelItem(this.channelMode.current);
                 break;
             }
             case PlayListEvent.PLAY_NEXT:
             {
-                this.view.changeItem(playListEvent.playListItem);
+                this.view.changeItem(this.playListModel.current);
                 break;
             }
         }

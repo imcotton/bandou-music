@@ -2,7 +2,7 @@ package com.imcotton.douban.music.mvcs.controller
 {
 
 import com.imcotton.douban.music.events.PlayListEvent;
-import com.imcotton.douban.music.mvcs.model.ChannelModel;
+import com.imcotton.douban.music.mvcs.model.IChannelModel;
 import com.imcotton.douban.music.mvcs.model.PlayListModel;
 import com.imcotton.douban.music.mvcs.service.IPlayListService;
 
@@ -22,18 +22,12 @@ public class PlayListCommand extends Command
     public var playListModel:PlayListModel;
 
     [Inject]
-    public var channelModel:ChannelModel;
+    public var channelModel:IChannelModel;
 
     override public function execute ():void
     {
         switch (event.type)
         {
-            case PlayListEvent.CHANGE_CHANNEL:
-            {
-                this.channelModel.current = this.event.channelItem;
-                this.playListService.switchChannel(this.event.channelItem);
-                break;
-            }
             case PlayListEvent.RENEW_CHANNEL:
             {
                 this.playListService.renewChannel();

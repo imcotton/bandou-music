@@ -5,7 +5,7 @@ import by.blooddy.crypto.serialization.JSON;
 
 import com.imcotton.douban.music.data.PlayListJSONParser;
 import com.imcotton.douban.music.mvcs.model.ChannelItem;
-import com.imcotton.douban.music.mvcs.model.ChannelModel;
+import com.imcotton.douban.music.mvcs.model.IChannelModel;
 import com.imcotton.douban.music.mvcs.model.PlayListModel;
 import com.imcotton.douban.music.mvcs.model.RemoteModel;
 
@@ -23,7 +23,7 @@ public class PlayListService extends Actor implements IPlayListService
     public var remoteModel:RemoteModel;
 
     [Inject]
-    public var channelModel:ChannelModel;
+    public var channelModel:IChannelModel;
 
     [Inject]
     public var playListModel:PlayListModel;

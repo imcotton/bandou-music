@@ -15,7 +15,7 @@ public class RemoteModel
     private static const SIGN_KEY:String = "fr0d0";
 
     [Inject]
-    public var channelModel:ChannelModel;
+    public var channelModel:IChannelModel;
 
     [Inject]
     public var playListModel:PlayListModel;

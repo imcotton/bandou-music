@@ -2,7 +2,7 @@ package com.imcotton.douban.music.mvcs.view
 {
 
 import com.imcotton.douban.music.mvcs.model.ChannelItem;
-import com.imcotton.douban.music.mvcs.model.ChannelModel;
+import com.imcotton.douban.music.mvcs.model.IChannelModel;
 import com.imcotton.douban.music.mvcs.model.PlayListItem;
 
 import flash.events.Event;
@@ -20,7 +20,7 @@ public class AppViewWrapper
 {
 
     [Inject]
-    public var channelModel:ChannelModel;
+    public var channelModel:IChannelModel;
 
     [Inject]
     public var appView:DoubanMusic;
@@ -36,11 +36,6 @@ public class AppViewWrapper
     [PostConstruct]
     public function postConstruct ():void
     {
-        var channelList:DropDownList = this.appView.channelList;
-            channelList.addEventListener(IndexChangeEvent.CHANGE, channelList_onChange);
-            channelList.dataProvider = new ArrayList(this.channelModel.list);
-            channelList.labelField = "name";
-
         this.appView.image.addEventListener(MouseEvent.CLICK, image_onClick);
 
         this.appView.volumeBar.addEventListener(Event.CHANGE, volumeBar_onChange);
@@ -57,6 +52,14 @@ public class AppViewWrapper
         this.init();
     }
 
+    public function updateChannelList ():void
+    {
+        var channelList:DropDownList = this.appView.channelList;
+            channelList.addEventListener(IndexChangeEvent.CHANGE, channelList_onChange);
+            channelList.dataProvider = new ArrayList(this.channelModel.list);
+            channelList.labelField = "name";
+    }
+    
     public function changeChannelItem ($item:ChannelItem):void
     {
         this.appView.channelList.selectedItem = $item;
