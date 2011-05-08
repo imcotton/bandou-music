@@ -3,6 +3,7 @@ package com.imcotton.douban.music.mvcs.model
 
 import com.imcotton.douban.music.events.PlayListEvent;
 
+import org.as3commons.lang.Assert;
 import org.robotlegs.mvcs.Actor;
 
 
@@ -16,9 +17,9 @@ public class PlayListModel extends Actor
 
     private var index:int;
 
-    private var _list:Vector.<PlayListItem>;
+    private var _list:Array;
 
-    public function get list ():Vector.<PlayListItem>
+    public function get list ():Array
     {
         return this._list;
     }
@@ -31,10 +32,12 @@ public class PlayListModel extends Actor
         return this.list[this.index];
     }
 
-    public function update ($list:Vector.<PlayListItem>):void
+    public function update ($list:Array):void
     {
+        Assert.arrayItemsOfType($list, PlayListItem);
+        
         this.index = 0;
-        this._list = $list;
+        this._list = $list.concat();
 
         this.dispatch(new PlayListEvent(PlayListEvent.LIST_CHANGE));
     }
@@ -65,7 +68,7 @@ public class PlayListModel extends Actor
     private function init ():void
     {
         this.index = -1;
-        this._list = new Vector.<PlayListItem>();
+        this._list = [];
     }
 
 }

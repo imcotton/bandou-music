@@ -7,10 +7,10 @@ import com.imcotton.douban.music.mvcs.model.PlayListItem;
 public class PlayListJSONParser
 {
 
-    public function parseJSON ($array:Array):Vector.<PlayListItem>
+    public function parseJSON ($array:Array):Array
     {
         var item:PlayListItem;
-        var list:Vector.<PlayListItem> = new Vector.<PlayListItem>();
+        var list:Array = [];
 
         for each (var i:Object in $array)
         {
