@@ -52,7 +52,7 @@ public class ChannelService implements IChannelService
             this.onError();
         }
         
-        array.sortOn("channel_id", Array.NUMERIC);
+        array.sortOn("seq_id", Array.NUMERIC);
         
         var tmp:Object;
 
