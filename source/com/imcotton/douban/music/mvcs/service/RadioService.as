@@ -1,6 +1,7 @@
 package com.imcotton.douban.music.mvcs.service
 {
 
+import com.imcotton.douban.music.events.RadioServiceEvent;
 import com.imcotton.douban.music.mvcs.model.IRadioSignalEnum;
 import com.imcotton.douban.music.mvcs.model.PlayListModel;
 
@@ -12,6 +13,7 @@ import org.osflash.signals.Signal;
 import org.osmf.elements.AudioElement;
 import org.osmf.elements.SoundLoader;
 import org.osmf.events.LoadEvent;
+import org.osmf.events.MediaErrorEvent;
 import org.osmf.events.TimeEvent;
 import org.osmf.media.MediaPlayer;
 import org.osmf.media.URLResource;
@@ -51,6 +53,8 @@ public class RadioService extends Actor implements IRadioService
 
     private var player:MediaPlayer;
 
+    private var retry:RetryClock;
+
     public function get repeat ():Boolean
     {
         return this.player.loop;
@@ -76,10 +80,16 @@ public class RadioService extends Actor implements IRadioService
         if (!$url)
             return;
 
+        if (!this.retry.isRetryCall)
+            this.retry.reset();
+
         var loadable:LoadTrait = this.element.getTrait(MediaTraitType.LOAD) as LoadTrait;
 
         if (this.element.resource && loadable)
-            this.loader.unload(loadable);
+        {
+            try { this.loader.unload(loadable); }
+            catch (error:Error) { /* never mind */ }
+        }
 
         this.element.resource = new URLResource($url);
 
@@ -99,6 +109,8 @@ public class RadioService extends Actor implements IRadioService
 
     private function init ():void
     {
+        this.retry = new RetryClock();
+
         var inject:Injector = new Injector();
             inject.mapValue(Signal, new Signal(Number, int, int), "load");
             inject.mapValue(Signal, new Signal(Number, Number, Number), "play");
@@ -122,6 +134,21 @@ public class RadioService extends Actor implements IRadioService
         this.player.addEventListener(LoadEvent.BYTES_LOADED_CHANGE, player_onLoading);
         this.player.addEventListener(TimeEvent.CURRENT_TIME_CHANGE, player_onTimeChange);
         this.player.addEventListener(TimeEvent.COMPLETE, player_onComplete);
+        this.player.addEventListener(MediaErrorEvent.MEDIA_ERROR, player_onError);
+    }
+
+    private function player_onError (event:MediaErrorEvent):void
+    {
+        if (!this.retry.next(fun))
+        {
+            this.dispatch(new RadioServiceEvent(RadioServiceEvent.RETRY_FAIL));
+        }
+
+        function fun ($step:int, $length:int):void
+        {
+            dispatch(new RadioServiceEvent(RadioServiceEvent.RETRYING));
+            load(loader.urlRequest.url, element.defaultDuration);
+        }
     }
 
     private function player_onTimeChange (event:TimeEvent):void
@@ -157,6 +184,9 @@ public class RadioService extends Actor implements IRadioService
 
 import com.imcotton.douban.music.mvcs.model.IRadioSignalEnum;
 
+import flash.utils.clearTimeout;
+import flash.utils.setTimeout;
+
 import org.osflash.signals.ISignal;
 import org.osflash.signals.Signal;
 
@@ -178,6 +208,90 @@ class RadioSignalEnum implements IRadioSignalEnum
     public function get playProgressSignal ():ISignal
     {
         return this._playProgressSignal;
+    }
+
+}
+
+
+
+class RetryClock
+{
+
+    public function RetryClock ()
+    {
+        this.init();
+    }
+
+    private var index:int;
+    private var list:Array;
+
+    private var handel:uint;
+
+    public function get hasNext ():Boolean
+    {
+        return this.index < this.list.length - 1;
+    }
+
+    public function get isOnGoing ():Boolean
+    {
+        return this.index > -1;
+    }
+
+    public var isRetryCall:Boolean = false;
+
+    private function get interval ():Number
+    {
+        return this.list[this.index];
+    }
+
+    public function reset ():void
+    {
+        this.index = -1;
+        clearTimeout(this.handel);
+    }
+
+    public function next ($fun:Function):Boolean
+    {
+        if (!this.hasNext)
+        {
+            this.reset();
+            return false;
+        }
+
+        this.index++;
+
+        this.handel = setTimeout
+        (
+            function ():void
+            {
+                isRetryCall = true;
+                $fun.apply(null, arguments);
+                isRetryCall = false;
+            },
+            this.interval, this.index + 1, this.list.length
+        );
+
+        return true;
+    }
+
+    public function next_back ($fun:Function):Boolean
+    {
+        if (!this.hasNext)
+        {
+            this.reset();
+            return false;
+        }
+
+        this.index++;
+        this.handel = setTimeout($fun, this.interval, this.index + 1, this.list.length);
+
+        return true;
+    }
+
+    private function init ():void
+    {
+        this.index = -1;
+        this.list = [500, 1000, 1500];
     }
 
 }

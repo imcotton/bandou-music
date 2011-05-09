@@ -5,6 +5,7 @@ import com.imcotton.douban.music.data.IPlayListJSONParser;
 import com.imcotton.douban.music.data.PlayListJSONParser;
 import com.imcotton.douban.music.events.ChannelEvent;
 import com.imcotton.douban.music.events.PlayListEvent;
+import com.imcotton.douban.music.events.RadioServiceEvent;
 import com.imcotton.douban.music.mvcs.model.ChannelModel;
 import com.imcotton.douban.music.mvcs.model.IChannelModel;
 import com.imcotton.douban.music.mvcs.model.PlayListModel;
@@ -47,6 +48,7 @@ public class StartupCommand extends Command
         this.commandMap.mapEvent(PlayListEvent.SKIP_NEXT, PlayListCommand, PlayListEvent);
 
         this.commandMap.mapEvent(PlayListEvent.PLAY_NEXT, RadioServiceCommand, PlayListEvent);
+        this.commandMap.mapEvent(RadioServiceEvent.RETRY_FAIL, RadioServiceCommand, RadioServiceEvent);
 
 
         this.mediatorMap.mapView(AppViewWrapper, AppViewMediator);

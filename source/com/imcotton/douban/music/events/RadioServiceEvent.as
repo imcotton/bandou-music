@@ -13,6 +13,9 @@ public class RadioServiceEvent extends Event
     public static const PAUSE:String = "pause";
     public static const PLAY:String = "play";
 
+    public static const RETRYING:String = "retrying";
+    public static const RETRY_FAIL:String = "retryFail";
+
     public function RadioServiceEvent ($type:String, $item:PlayListItem = null)
     {
         super($type);
