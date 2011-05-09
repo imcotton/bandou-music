@@ -36,7 +36,7 @@ public class PlayListModel extends Actor
     {
         Assert.arrayItemsOfType($list, PlayListItem);
 
-        this.index = 0;
+        this.index = -1;
         this._list = $list.concat();
 
         this.dispatch(new PlayListEvent(PlayListEvent.LIST_CHANGE));
