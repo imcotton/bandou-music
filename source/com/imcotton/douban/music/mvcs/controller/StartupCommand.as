@@ -37,7 +37,7 @@ public class StartupCommand extends Command
         //  only to make sure the IRadioSignalEnum get mapped
         this.injector.getInstance(IRadioService);
 
-        
+
         this.commandMap.mapEvent(ChannelEvent.LIST_UPDATE, ChannelCommand, ChannelEvent);
         this.commandMap.mapEvent(ChannelEvent.CHANNEL_UPDATE, ChannelCommand, ChannelEvent);
 

@@ -59,7 +59,7 @@ public class AppViewWrapper
             channelList.dataProvider = new ArrayList(this.channelModel.list);
             channelList.labelField = "name";
     }
-    
+
     public function changeChannelItem ($item:ChannelItem):void
     {
         this.appView.channelList.selectedItem = $item;

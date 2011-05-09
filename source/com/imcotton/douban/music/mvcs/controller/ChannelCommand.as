@@ -9,16 +9,16 @@ import org.robotlegs.mvcs.Command;
 
 public class ChannelCommand extends Command
 {
-    
+
     [Inject]
     public var event:ChannelEvent;
-    
+
     [Inject]
     public var channelModel:IChannelModel;
 
     [Inject]
     public var playListService:IPlayListService;
-    
+
     override public function execute ():void
     {
         switch (this.event.type)
@@ -35,7 +35,7 @@ public class ChannelCommand extends Command
             }
         }
     }
-    
+
 }
 }
 

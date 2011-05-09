@@ -35,7 +35,7 @@ public class PlayListModel extends Actor
     public function update ($list:Array):void
     {
         Assert.arrayItemsOfType($list, PlayListItem);
-        
+
         this.index = 0;
         this._list = $list.concat();
 
