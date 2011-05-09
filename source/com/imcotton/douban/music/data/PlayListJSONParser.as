@@ -4,7 +4,7 @@ package com.imcotton.douban.music.data
 import com.imcotton.douban.music.mvcs.model.PlayListItem;
 
 
-public class PlayListJSONParser
+public class PlayListJSONParser implements IPlayListJSONParser
 {
 
     public function parseJSON ($array:Array):Array

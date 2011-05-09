@@ -3,7 +3,7 @@ package com.imcotton.douban.music.mvcs.service
 
 import by.blooddy.crypto.serialization.JSON;
 
-import com.imcotton.douban.music.data.PlayListJSONParser;
+import com.imcotton.douban.music.data.IPlayListJSONParser;
 import com.imcotton.douban.music.mvcs.model.ChannelItem;
 import com.imcotton.douban.music.mvcs.model.IChannelModel;
 import com.imcotton.douban.music.mvcs.model.PlayListModel;
@@ -29,7 +29,7 @@ public class PlayListService extends Actor implements IPlayListService
     public var playListModel:PlayListModel;
 
     [Inject]
-    public var playListJSONParser:PlayListJSONParser;
+    public var playListJSONParser:IPlayListJSONParser;
 
     public function PlayListService ()
     {

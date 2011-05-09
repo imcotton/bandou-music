@@ -1,6 +1,7 @@
 package com.imcotton.douban.music.mvcs.controller
 {
 
+import com.imcotton.douban.music.data.IPlayListJSONParser;
 import com.imcotton.douban.music.data.PlayListJSONParser;
 import com.imcotton.douban.music.events.ChannelEvent;
 import com.imcotton.douban.music.events.PlayListEvent;
@@ -25,7 +26,7 @@ public class StartupCommand extends Command
 
     override public function execute ():void
     {
-        this.injector.mapSingleton(PlayListJSONParser);
+        this.injector.mapSingletonOf(IPlayListJSONParser, PlayListJSONParser);
         this.injector.mapSingletonOf(IChannelModel, ChannelModel);
         this.injector.mapSingleton(PlayListModel);
         this.injector.mapSingleton(RemoteModel);
