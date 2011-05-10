@@ -84,8 +84,8 @@ package org.osmf.elements
 		 * @private
 		 * 
 		 * Indicates whether this SoundLoader is capable of handling the specified resource.
-		 * Returns <code>true</code> for URLResources with MP3 extensions or media/mime
-		 * types that match MP3.
+		 * Returns <code>true</code> for URLResources with MP3 extensions, M4A extensions, or
+		 * media/mime types that match MP3.
 		 * @param resource Resource proposed to be loaded.
 		 */ 
 		override public function canHandleResource(resource:MediaResourceBase):Boolean
@@ -114,14 +114,14 @@ package org.osmf.elements
 			var url:URL = new URL(urlResource.url);
 			if (url.protocol == "")
 			{
-				return url.path.search(/\.mp3$/i) != -1;
+				return url.path.search(/\.mp3$|\.m4a$/i) != -1;
 			}		
 			if (url.protocol.search(/file$|http$|https$/i) != -1)
 			{
 				return (url.path == null ||
 						url.path.length <= 0 ||
 						url.path.indexOf(".") == -1 ||
-						url.path.search(/\.mp3$/i) != -1);
+						url.path.search(/\.mp3$|\.m4a$/i) != -1);
 			}
 			
 			return false;
@@ -192,7 +192,13 @@ package org.osmf.elements
 				// want to have already signaled READY).  15 bytes is roughly the
 				// size of a 404, and presumably we'll never need to load content
 				// so small, so this seems like a safe heuristic to use.
-				if (event.bytesTotal >= MIN_BYTES_TO_RECEIVE)
+				//
+				// The second condition is to cover the case where a load is
+				// immediately followed by an unload.  In such a case, we might
+				// still get a ProgressEvent, but we want to ignore it since we've
+				// already changed the state to unloaded.
+				if (event.bytesTotal >= MIN_BYTES_TO_RECEIVE &&
+					soundLoadTrait.loadState == LoadState.LOADING)
 				{
 					toggleSoundListeners(sound, false);
 
@@ -255,8 +261,11 @@ package org.osmf.elements
 			
 			updateLoadTrait(soundLoadTrait, LoadState.UNLOADING);
 			try
-			{			
-				soundLoadTrait.sound.close();
+			{
+				if (soundLoadTrait.sound != null)
+				{
+					soundLoadTrait.sound.close();
+				}
 			}
 			catch (error:IOError)
 			{
