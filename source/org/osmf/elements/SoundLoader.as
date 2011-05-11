@@ -18,6 +18,9 @@
 *  Portions created by Adobe Systems Incorporated are Copyright (C) 2009 Adobe Systems 
 *  Incorporated. All Rights Reserved. 
 *  
+*  Contributor(s):
+*    Cotton Hou <himcotton@gmail.com>
+*  
 *****************************************************/
 package org.osmf.elements
 {
