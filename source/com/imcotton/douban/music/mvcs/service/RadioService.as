@@ -140,9 +140,7 @@ public class RadioService extends Actor implements IRadioService
     private function player_onError (event:MediaErrorEvent):void
     {
         if (!this.retry.next(fun))
-        {
             this.dispatch(new RadioServiceEvent(RadioServiceEvent.RETRY_FAIL));
-        }
 
         function fun ($step:int, $length:int):void
         {
@@ -270,20 +268,6 @@ class RetryClock
             },
             this.interval, this.index + 1, this.list.length
         );
-
-        return true;
-    }
-
-    public function next_back ($fun:Function):Boolean
-    {
-        if (!this.hasNext)
-        {
-            this.reset();
-            return false;
-        }
-
-        this.index++;
-        this.handel = setTimeout($fun, this.interval, this.index + 1, this.list.length);
 
         return true;
     }
