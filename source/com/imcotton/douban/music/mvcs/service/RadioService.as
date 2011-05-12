@@ -157,7 +157,7 @@ public class RadioService extends Actor implements IRadioService
         (
             this.player.currentTime / this.player.duration,
             this.player.currentTime,
-            this.element.defaultDuration
+            this.element.defaultDuration || this.player.duration
         );
     }
 
