@@ -2,10 +2,12 @@ package com.imcotton.douban.music.mvcs.view
 {
 
 import com.imcotton.douban.music.events.ChannelEvent;
+import com.imcotton.douban.music.events.LoginEvent;
 import com.imcotton.douban.music.events.PlayListEvent;
 import com.imcotton.douban.music.mvcs.model.ChannelItem;
 import com.imcotton.douban.music.mvcs.model.IChannelModel;
 import com.imcotton.douban.music.mvcs.model.IRadioSignalEnum;
+import com.imcotton.douban.music.mvcs.model.LoginModel;
 import com.imcotton.douban.music.mvcs.model.PlayListModel;
 import com.imcotton.douban.music.mvcs.model.RemoteModel;
 import com.imcotton.douban.music.mvcs.service.IRadioService;
@@ -37,6 +39,9 @@ public class AppViewMediator extends Mediator
     [Inject]
     public var channelMode:IChannelModel;
 
+    [Inject]
+    public var loginModel:LoginModel;
+
     override public function onRegister ():void
     {
         this.view.channelSignal.add(onChannel);
@@ -48,12 +53,15 @@ public class AppViewMediator extends Mediator
         this.view.backSiteSignal.add(onBackSite);
         this.view.likeUnlikeSignal.add(onLikeUnlike);
         this.view.deleteSignal.add(onDelete);
+        this.view.signSignal.add(onSign);
 
         this.radioSignalEnum.playProgressSignal.add(onPlaying);
 
-        this.addContextListener(ChannelEvent.LIST_UPDATE, onContextEvent);
-        this.addContextListener(ChannelEvent.CHANNEL_UPDATE, onContextEvent);
-        this.addContextListener(PlayListEvent.PLAY_NEXT, onContextEvent);
+        this.addContextListener(ChannelEvent.LIST_UPDATE, onContextEvent, ChannelEvent);
+        this.addContextListener(ChannelEvent.CHANNEL_UPDATE, onContextEvent, ChannelEvent);
+        this.addContextListener(PlayListEvent.PLAY_NEXT, onContextEvent, PlayListEvent);
+        this.addContextListener(LoginEvent.ON_LOGIN, onContextEvent, LoginEvent);
+        this.addContextListener(LoginEvent.ON_LOGOUT, onContextEvent, LoginEvent);
     }
     
     private function onDelete ():void
@@ -79,6 +87,17 @@ public class AppViewMediator extends Mediator
             event.playListItem = this.playListModel.current;
         
         this.dispatch(event);
+    }
+
+    private function onSign ():void
+    {
+        this.dispatch
+        (
+            new LoginEvent
+            (
+                this.loginModel.hasLogin ? LoginEvent.LOGOUT : LoginEvent.LOGIN
+            )
+        );
     }
     
     private function onBackSite ():void
@@ -141,6 +160,12 @@ public class AppViewMediator extends Mediator
             case PlayListEvent.PLAY_NEXT:
             {
                 this.view.changeItem(this.playListModel.current);
+                break;
+            }
+            case LoginEvent.ON_LOGIN:
+            case LoginEvent.ON_LOGOUT:
+            {
+                this.view.changeSignBtnLabel(this.loginModel.hasLogin ? this.loginModel.name : null)
                 break;
             }
         }

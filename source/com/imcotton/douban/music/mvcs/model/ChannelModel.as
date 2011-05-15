@@ -69,6 +69,12 @@ public class ChannelModel extends Actor implements IChannelModel
 
         this.dispatch(new ChannelEvent(ChannelEvent.LIST_UPDATE));
     }
+    
+    public function showPresonalChannel ():void
+    {
+        this._list.unshift(this.presonal);
+        this.current = this.presonal;
+    }
 
 }
 }

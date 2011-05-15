@@ -15,6 +15,8 @@ public interface IChannelModel
     function getItemByIndex (index:int):ChannelItem;
 
     function updateList (list:Array):void;
+    
+    function showPresonalChannel ():void;
 
 }
 }

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:s="library://ns.adobe.com/flex/spark"
+               xmlns:signals="org.osflash.signals.*"
+               xmlns:mx="library://ns.adobe.com/flex/mx"
+               width="300" height="180" creationComplete="creationCompleteHandler(event)" close="closeHandler(event)" currentState="start"
+               title="Login">
+    
+    
+    <fx:Script>
+        <![CDATA[
+            import mx.events.CloseEvent;
+            import mx.events.FlexEvent;
+            import mx.events.ValidationResultEvent;
+            import mx.managers.PopUpManager;
+            import mx.validators.EmailValidator;
+            import mx.validators.Validator;
+            
+            import spark.events.TextOperationEvent;
+            
+            
+            public function toConnectState ():void
+            {
+                this.currentState = "connecting";
+            }
+            
+            public function toTypeInState ():void
+            {
+                this.currentState = "start";
+            }
+            
+            private function changeHandler (event:TextOperationEvent):void
+            {
+                for each (var item:Validator in this.validators)
+                    if (item.validate(null, true).type == ValidationResultEvent.INVALID)
+                        return void(this.loginBtn.enabled = false);
+
+                this.loginBtn.enabled = true;
+            }
+            
+            private function loginBtn_clickHandler (event:MouseEvent):void
+            {
+                this.submitSignal.dispatch(this.emailText.text, this.passwordText.text);
+            }
+            
+            private function closeHandler (event:CloseEvent):void
+            {
+                this.closeSignal.dispatch();
+            }
+
+            private function creationCompleteHandler (event:FlexEvent):void
+            {
+                this.isPopUp = false;
+                
+                include "./config.png"
+                this.changeHandler(null);
+            }
+            
+        ]]>
+        
+    </fx:Script>
+    
+    
+    <s:states>
+        <s:State name="start"/>
+        <s:State name="connecting"/>
+    </s:states>
+    
+    
+    <fx:Declarations>
+        
+        <signals:Signal id="submitSignal" valueClasses="{[String, String]}"/>
+        <signals:Signal id="closeSignal"/>
+        
+        <fx:Array id="validators">
+            <mx:EmailValidator source="{{text:this.emailText.text}}" property="text"/>
+            <mx:StringValidator source="{{text:this.passwordText.text}}" property="text" maxLength="128" minLength="3"/>
+        </fx:Array>
+        
+    </fx:Declarations>
+    
+
+    <s:Form id="form" includeIn="start" x="11" verticalCenter="0">
+        
+        <s:FormItem width="250" label="Email" required="true">
+            <s:TextInput id="emailText" width="140" height="20"
+                         change="changeHandler(event)"
+            />
+        </s:FormItem>
+        
+        <s:FormItem width="250" label="Password" required="true">
+            <s:TextInput id="passwordText" width="140" height="20" displayAsPassword="true"
+                         change="changeHandler(event)"
+            />
+        </s:FormItem>
+        
+        <s:FormItem width="250">
+            <s:Button id="loginBtn" width="80" height="20" label="Login" enabled="false"
+                      click="loginBtn_clickHandler(event)"
+            />
+        </s:FormItem>
+        
+    </s:Form>
+    <s:Label includeIn="connecting" y="61" color="#3387DD" fontSize="14" fontStyle="normal"
+             fontWeight="bold" horizontalCenter="0" text="Connecting..."/>
+    
+</s:TitleWindow>
