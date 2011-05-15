@@ -2,6 +2,7 @@ package com.imcotton.douban.music.mvcs.controller
 {
 
 import com.imcotton.douban.music.events.LoginEvent;
+import com.imcotton.douban.music.mvcs.model.IChannelModel;
 import com.imcotton.douban.music.mvcs.model.LoginModel;
 import com.imcotton.douban.music.mvcs.service.ILoginService;
 import com.imcotton.douban.music.mvcs.view.components.LoginView;
@@ -26,6 +27,9 @@ public class LoginCommand extends Command
     
     [Inject]
     public var loginService:ILoginService;
+    
+    [Inject]
+    public var channelModel:IChannelModel;
     
     override public function execute ():void
     {
@@ -62,6 +66,11 @@ public class LoginCommand extends Command
                     
                 ).isPopUp = false;
                 
+                break;
+            }
+            case LoginEvent.ON_LOGIN:
+            {
+                this.channelModel.showPresonalChannel();
                 break;
             }
         }

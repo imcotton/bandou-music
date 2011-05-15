@@ -59,6 +59,7 @@ public class StartupCommand extends Command
         this.commandMap.mapEvent(RadioServiceEvent.RETRY_FAIL, RadioServiceCommand, RadioServiceEvent);
         this.commandMap.mapEvent(LoginEvent.LOGIN, LoginCommand, LoginEvent);
         this.commandMap.mapEvent(LoginEvent.LOGOUT, LoginCommand, LoginEvent);
+        this.commandMap.mapEvent(LoginEvent.ON_LOGIN, LoginCommand, LoginEvent);
 
 
         this.mediatorMap.mapView(AppViewWrapper, AppViewMediator);
