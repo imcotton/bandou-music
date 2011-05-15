@@ -14,6 +14,7 @@ public class ChannelSwitchCommand extends Command
 
     override public function execute ():void
     {
+        return;
         this.channelService.load();
     }
 
