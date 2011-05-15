@@ -46,6 +46,7 @@ public class AppViewMediator extends Mediator
         this.view.triggerSignal.add(onTrigger);
         this.view.repeatSignal.add(onRepeat);
         this.view.backSiteSignal.add(onBackSite);
+        this.view.likeUnlikeSignal.add(onLikeUnlike);
 
         this.radioSignalEnum.playProgressSignal.add(onPlaying);
 
@@ -53,7 +54,18 @@ public class AppViewMediator extends Mediator
         this.addContextListener(ChannelEvent.CHANNEL_UPDATE, onContextEvent);
         this.addContextListener(PlayListEvent.PLAY_NEXT, onContextEvent);
     }
-
+    
+    private function onLikeUnlike ($isLike:Boolean):void
+    {
+        var event:PlayListEvent = new PlayListEvent
+            (
+                $isLike ? PlayListEvent.LIKE : PlayListEvent.UNLIKE
+            );
+            event.playListItem = this.playListModel.current;
+        
+        this.dispatch(event);
+    }
+    
     private function onBackSite ():void
     {
         navigateToURL(this.remoteModel.createAlbumSiteRequest());

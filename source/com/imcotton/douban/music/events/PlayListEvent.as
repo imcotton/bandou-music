@@ -14,6 +14,9 @@ public class PlayListEvent extends Event
 
     public static const SKIP_NEXT:String = "skipNext";
     public static const PLAY_NEXT:String = "playNext";
+    
+    public static const LIKE:String = "like";
+    public static const UNLIKE:String = "unlike";
 
     public static const LIST_CHANGE:String = "listChange";
 

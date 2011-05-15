@@ -51,6 +51,17 @@ public class RemoteModel
 
         return this.makeRequest(variables);
     }
+    
+    public function createLikeUnlike ($item:PlayListItem, $isLike:Boolean):URLRequest
+    {
+        var variables:Variables = new Variables()
+                .setType($isLike ? TypeEnum.LIKE : TypeEnum.UNLIKE)
+                .setSID($item.sid)
+                .setHistory(null)
+                .setChannelID(this.channelModel.current.id);
+
+        return this.makeRequest(variables);
+    }
 
     public function createAlbumSiteRequest ():URLRequest
     {
@@ -103,6 +114,8 @@ class TypeEnum
     public static const LIST_OUT:String = "p";
     public static const NEW_LIST:String = "n";
     public static const SKIP_NEXT:String = "s";
+    public static const LIKE:String = "r";
+    public static const UNLIKE:String = "u";
 
 }
 

@@ -11,8 +11,10 @@ import flash.events.MouseEvent;
 import mx.collections.ArrayList;
 
 import org.osflash.signals.Signal;
+import org.osflash.signals.natives.NativeMappedSignal;
 
 import spark.components.DropDownList;
+import spark.components.ToggleButton;
 import spark.events.IndexChangeEvent;
 
 
@@ -32,6 +34,7 @@ public class AppViewWrapper
     public var repeatSignal:Signal;
     public var triggerSignal:Signal;
     public var backSiteSignal:Signal;
+    public var likeUnlikeSignal:NativeMappedSignal;
 
     [PostConstruct]
     public function postConstruct ():void
@@ -45,6 +48,15 @@ public class AppViewWrapper
 
         this.appView.skipBtn.addEventListener(MouseEvent.CLICK, skipBtn_onButtonDown);
         this.appView.nextBtn.addEventListener(MouseEvent.CLICK, nextBtn_onButtonDown);
+
+        this.likeUnlikeSignal = new NativeMappedSignal
+        (
+            this.appView.likeBtn, Event.CHANGE, Event, Boolean
+        );
+        this.likeUnlikeSignal.mapTo(function (event:Event):Boolean
+        {
+            return ToggleButton(event.target).selected;
+        });
     }
 
     public function AppViewWrapper ()
@@ -70,7 +82,11 @@ public class AppViewWrapper
         this.appView.image.source = $item.albumCoverURL;
         this.appView.titleText.text = $item.songName + " - " + $item.albumName;
         this.appView.authorText.text = $item.artistName;
-        this.appView.triggerBtn.selected = this.appView.repeatBtn.selected = false;
+        
+        this.appView.triggerBtn.selected
+            = this.appView.repeatBtn.selected
+            = this.appView.likeBtn.selected
+            = false;
     }
 
     public function updateTimer ($current:Number, $duration:Number):void

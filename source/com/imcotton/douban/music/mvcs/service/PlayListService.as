@@ -6,6 +6,7 @@ import by.blooddy.crypto.serialization.JSON;
 import com.imcotton.douban.music.data.IPlayListJSONParser;
 import com.imcotton.douban.music.mvcs.model.ChannelItem;
 import com.imcotton.douban.music.mvcs.model.IChannelModel;
+import com.imcotton.douban.music.mvcs.model.PlayListItem;
 import com.imcotton.douban.music.mvcs.model.PlayListModel;
 import com.imcotton.douban.music.mvcs.model.RemoteModel;
 
@@ -37,6 +38,8 @@ public class PlayListService extends Actor implements IPlayListService
     }
 
     private var loader:URLLoader;
+    
+    private var isAppend:Boolean;
 
     public function renewChannel ():void
     {
@@ -58,24 +61,30 @@ public class PlayListService extends Actor implements IPlayListService
 
         this.loader.load(this.remoteModel.createSkipRequest());
     }
+    
+    public function fetchForSong ($item:PlayListItem, $isLike:Boolean):void
+    {
+        this.cancel();
 
+        this.isAppend = true;
+        this.loader.load(this.remoteModel.createLikeUnlike($item, $isLike));
+    }
+    
     private function cancel ():void
     {
+        this.isAppend = false;
+        
         if (!this.loader)
             return;
 
-        try
-        {
-            this.loader.close();
-        }
-        catch (error:Error)
-        {
-            //  don't go anywhere
-        }
+        try { this.loader.close() }
+        catch (error:Error) { }
     }
 
     private function init ():void
     {
+        this.isAppend = false;
+        
         this.loader = new URLLoader();
         this.loader.addEventListener(Event.COMPLETE, loader_onEvent);
         this.loader.addEventListener(IOErrorEvent.IO_ERROR, loader_onEvent);
@@ -91,7 +100,14 @@ public class PlayListService extends Actor implements IPlayListService
                 var arr:Array = json.song;
 
                 if (arr && arr.length)
-                    this.playListModel.update(this.playListJSONParser.parseJSON(arr));
+                {
+                    arr = this.playListJSONParser.parseJSON(arr);
+                    
+                    if (this.isAppend)
+                        this.playListModel.append(arr);
+                    else
+                        this.playListModel.update(arr);
+                }
 
                 break;
             }

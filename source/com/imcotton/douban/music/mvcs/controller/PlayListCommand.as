@@ -43,6 +43,16 @@ public class PlayListCommand extends Command
                 this.playListModel.next();
                 break;
             }
+            case PlayListEvent.LIKE:
+            {
+                this.playListService.fetchForSong(event.playListItem, true);
+                break;
+            }
+            case PlayListEvent.UNLIKE:
+            {
+                this.playListService.fetchForSong(event.playListItem, false);
+                break;
+            }
         }
     }
 

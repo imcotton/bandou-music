@@ -41,6 +41,14 @@ public class PlayListModel extends Actor
 
         this.dispatch(new PlayListEvent(PlayListEvent.LIST_CHANGE));
     }
+    
+    public function append ($list:Array):void
+    {
+        Assert.arrayItemsOfType($list, PlayListItem);
+
+        this._list.length = this.index + 1;
+        this._list = this.list.concat($list);
+    }
 
     public function next ():void
     {
