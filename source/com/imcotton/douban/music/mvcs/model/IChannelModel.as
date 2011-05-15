@@ -17,6 +17,8 @@ public interface IChannelModel
     function updateList (list:Array):void;
     
     function showPresonalChannel ():void;
+    
+    function hidePresonalChannel ():void;
 
 }
 }

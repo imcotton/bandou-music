@@ -9,7 +9,6 @@ import com.imcotton.douban.music.mvcs.view.components.LoginView;
 
 import mx.controls.Alert;
 import mx.core.IFlexDisplayObject;
-import mx.core.IUIComponent;
 import mx.events.CloseEvent;
 import mx.managers.PopUpManager;
 
@@ -71,6 +70,11 @@ public class LoginCommand extends Command
             case LoginEvent.ON_LOGIN:
             {
                 this.channelModel.showPresonalChannel();
+                break;
+            }
+            case LoginEvent.ON_LOGOUT:
+            {
+                this.channelModel.hidePresonalChannel();
                 break;
             }
         }
