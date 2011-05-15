@@ -12,7 +12,7 @@ public interface IPlayListService
     function renewChannel ():void;
     function switchChannel (item:ChannelItem):void;
     function fetchForSong (item:PlayListItem, isLike:Boolean):void;
-
+    function fetchForBlank (item:PlayListItem):void;
 }
 }
 
