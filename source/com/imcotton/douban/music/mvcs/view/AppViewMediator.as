@@ -66,7 +66,7 @@ public class AppViewMediator extends Mediator
     
     private function onDelete ():void
     {
-        if (this.channelMode.current.id != "0")
+        if (!this.loginModel.hasLogin)
         {
             this.onSkip();
             return;
