@@ -48,6 +48,7 @@ public class StartupCommand extends Command
         this.commandMap.mapEvent(PlayListEvent.SKIP_NEXT, PlayListCommand, PlayListEvent);
         this.commandMap.mapEvent(PlayListEvent.LIKE, PlayListCommand, PlayListEvent);
         this.commandMap.mapEvent(PlayListEvent.UNLIKE, PlayListCommand, PlayListEvent);
+        this.commandMap.mapEvent(PlayListEvent.BLANK, PlayListCommand, PlayListEvent);
 
         this.commandMap.mapEvent(PlayListEvent.PLAY_NEXT, RadioServiceCommand, PlayListEvent);
         this.commandMap.mapEvent(RadioServiceEvent.RETRY_FAIL, RadioServiceCommand, RadioServiceEvent);

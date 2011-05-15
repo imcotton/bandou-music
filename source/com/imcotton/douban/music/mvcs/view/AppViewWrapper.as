@@ -35,6 +35,7 @@ public class AppViewWrapper
     public var triggerSignal:Signal;
     public var backSiteSignal:Signal;
     public var likeUnlikeSignal:NativeMappedSignal;
+    public var deleteSignal:NativeMappedSignal;
 
     [PostConstruct]
     public function postConstruct ():void
@@ -49,14 +50,13 @@ public class AppViewWrapper
         this.appView.skipBtn.addEventListener(MouseEvent.CLICK, skipBtn_onButtonDown);
         this.appView.nextBtn.addEventListener(MouseEvent.CLICK, nextBtn_onButtonDown);
 
-        this.likeUnlikeSignal = new NativeMappedSignal
-        (
-            this.appView.likeBtn, Event.CHANGE, Event, Boolean
-        );
+        this.likeUnlikeSignal = new NativeMappedSignal(this.appView.likeBtn, Event.CHANGE, Event, Boolean);
         this.likeUnlikeSignal.mapTo(function (event:Event):Boolean
         {
             return ToggleButton(event.target).selected;
         });
+        
+        this.deleteSignal = new NativeMappedSignal(this.appView.delBtn, MouseEvent.CLICK, MouseEvent);
     }
 
     public function AppViewWrapper ()

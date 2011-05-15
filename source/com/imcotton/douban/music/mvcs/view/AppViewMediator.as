@@ -47,12 +47,27 @@ public class AppViewMediator extends Mediator
         this.view.repeatSignal.add(onRepeat);
         this.view.backSiteSignal.add(onBackSite);
         this.view.likeUnlikeSignal.add(onLikeUnlike);
+        this.view.deleteSignal.add(onDelete);
 
         this.radioSignalEnum.playProgressSignal.add(onPlaying);
 
         this.addContextListener(ChannelEvent.LIST_UPDATE, onContextEvent);
         this.addContextListener(ChannelEvent.CHANNEL_UPDATE, onContextEvent);
         this.addContextListener(PlayListEvent.PLAY_NEXT, onContextEvent);
+    }
+    
+    private function onDelete ():void
+    {
+        if (this.channelMode.current.id != "0")
+        {
+            this.onSkip();
+            return;
+        }
+        
+        var event:PlayListEvent = new PlayListEvent(PlayListEvent.BLANK);
+            event.playListItem = this.playListModel.current;
+        
+        this.dispatch(event);
     }
     
     private function onLikeUnlike ($isLike:Boolean):void

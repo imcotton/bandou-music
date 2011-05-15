@@ -70,6 +70,13 @@ public class PlayListService extends Actor implements IPlayListService
         this.loader.load(this.remoteModel.createLikeUnlike($item, $isLike));
     }
     
+    public function fetchForBlank ($item:PlayListItem):void
+    {
+        this.cancel();
+
+        this.loader.load(this.remoteModel.createBlank($item));
+    }
+    
     private function cancel ():void
     {
         this.isAppend = false;
@@ -117,6 +124,8 @@ public class PlayListService extends Actor implements IPlayListService
                 break;
             }
         }
+        
+        this.isAppend = false;
     }
 
 }

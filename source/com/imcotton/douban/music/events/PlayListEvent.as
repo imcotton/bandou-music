@@ -17,6 +17,8 @@ public class PlayListEvent extends Event
     
     public static const LIKE:String = "like";
     public static const UNLIKE:String = "unlike";
+    
+    public static const BLANK:String = "blank";
 
     public static const LIST_CHANGE:String = "listChange";
 

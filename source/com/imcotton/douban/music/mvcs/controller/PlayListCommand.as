@@ -53,6 +53,11 @@ public class PlayListCommand extends Command
                 this.playListService.fetchForSong(event.playListItem, false);
                 break;
             }
+            case PlayListEvent.BLANK:
+            {
+                this.playListService.fetchForSong(event.playListItem, false);
+                break;
+            }
         }
     }
 
