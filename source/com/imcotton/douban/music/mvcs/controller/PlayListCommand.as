@@ -55,7 +55,7 @@ public class PlayListCommand extends Command
             }
             case PlayListEvent.BLANK:
             {
-                this.playListService.fetchForSong(event.playListItem, false);
+                this.playListService.fetchForBlank(event.playListItem);
                 break;
             }
         }
