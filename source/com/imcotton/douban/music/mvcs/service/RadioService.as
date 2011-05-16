@@ -99,7 +99,8 @@ public class RadioService extends Actor implements IRadioService
 
     public function pause ():void
     {
-        this.player.pause();
+        try { this.player.pause() }
+        catch (error:Error) { }
     }
 
     public function play ():void
