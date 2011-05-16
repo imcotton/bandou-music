@@ -10,7 +10,7 @@ import org.robotlegs.mvcs.Actor;
 public class ChannelModel extends Actor implements IChannelModel
 {
 
-    private var presonal:ChannelItem;
+    private var personal:ChannelItem;
 
     private var _list:Array;
 
@@ -54,6 +54,11 @@ public class ChannelModel extends Actor implements IChannelModel
         this.index = index;
     }
 
+    public function get isPersonalChannel ():Boolean
+    {
+        return this.current == this.personal;
+    }
+    
     public function getItemByIndex ($index:int):ChannelItem
     {
         return this.list[$index];
@@ -65,7 +70,7 @@ public class ChannelModel extends Actor implements IChannelModel
 
         this._index = -1;
         this._list = $list.concat();
-        this.presonal = this.list.shift();
+        this.personal = this.list.shift();
 
         this.dispatch(new ChannelEvent(ChannelEvent.LIST_UPDATE));
         
@@ -75,11 +80,11 @@ public class ChannelModel extends Actor implements IChannelModel
     public function showPresonalChannel ():void
     {
         this._index = -1;
-        this._list.unshift(this.presonal);
+        this._list.unshift(this.personal);
 
         this.dispatch(new ChannelEvent(ChannelEvent.LIST_UPDATE));
         
-        this.current = this.presonal;
+        this.current = this.personal;
     }
 
     public function hidePresonalChannel ():void

@@ -4,6 +4,8 @@ package com.imcotton.douban.music.mvcs.model
 public interface IChannelModel
 {
 
+    function get isPersonalChannel ():Boolean;
+    
     function get current ():ChannelItem;
     function set current (item:ChannelItem):void;
 

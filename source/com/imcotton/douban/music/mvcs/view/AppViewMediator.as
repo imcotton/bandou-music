@@ -66,16 +66,17 @@ public class AppViewMediator extends Mediator
     
     private function onDelete ():void
     {
-        if (!this.loginModel.hasLogin)
+        if (this.loginModel.hasLogin && this.channelMode.isPersonalChannel)
+        {
+            var event:PlayListEvent = new PlayListEvent(PlayListEvent.BLANK);
+                event.playListItem = this.playListModel.current;
+            
+            this.dispatch(event);
+        }
+        else
         {
             this.onSkip();
-            return;
         }
-        
-        var event:PlayListEvent = new PlayListEvent(PlayListEvent.BLANK);
-            event.playListItem = this.playListModel.current;
-        
-        this.dispatch(event);
     }
     
     private function onLikeUnlike ($isLike:Boolean):void
