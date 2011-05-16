@@ -63,14 +63,14 @@ public class AppViewMediator extends Mediator
         this.addContextListener(LoginEvent.ON_LOGIN, onContextEvent, LoginEvent);
         this.addContextListener(LoginEvent.ON_LOGOUT, onContextEvent, LoginEvent);
     }
-    
+
     private function onDelete ():void
     {
         if (this.loginModel.hasLogin && this.channelMode.isPersonalChannel)
         {
             var event:PlayListEvent = new PlayListEvent(PlayListEvent.BLANK);
                 event.playListItem = this.playListModel.current;
-            
+
             this.dispatch(event);
         }
         else
@@ -78,7 +78,7 @@ public class AppViewMediator extends Mediator
             this.onSkip();
         }
     }
-    
+
     private function onLikeUnlike ($isLike:Boolean):void
     {
         var event:PlayListEvent = new PlayListEvent
@@ -86,7 +86,7 @@ public class AppViewMediator extends Mediator
                 $isLike ? PlayListEvent.LIKE : PlayListEvent.UNLIKE
             );
             event.playListItem = this.playListModel.current;
-        
+
         this.dispatch(event);
     }
 
@@ -100,7 +100,7 @@ public class AppViewMediator extends Mediator
             )
         );
     }
-    
+
     private function onBackSite ():void
     {
         navigateToURL(this.remoteModel.createAlbumSiteRequest());

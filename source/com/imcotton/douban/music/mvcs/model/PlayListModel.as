@@ -41,7 +41,7 @@ public class PlayListModel extends Actor
 
         this.dispatch(new PlayListEvent(PlayListEvent.LIST_CHANGE));
     }
-    
+
     public function append ($list:Array):void
     {
         Assert.arrayItemsOfType($list, PlayListItem);

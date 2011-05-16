@@ -5,7 +5,7 @@ import mx.utils.StringUtil;
 
 public class LoginModel
 {
-    
+
     public var ck:String;
     public var uid:String;
     public var name:String;
@@ -14,12 +14,12 @@ public class LoginModel
     {
         return this.uid && this.uid != "0";
     }
-    
+
     public function reset ():void
     {
         this.ck = this.name = this.uid = "";
     }
-    
+
     public function toString ():String
     {
         return StringUtil.substitute

@@ -17,19 +17,19 @@ import org.robotlegs.mvcs.Command;
 
 public class LoginCommand extends Command
 {
-    
+
     [Inject]
     public var event:LoginEvent;
-    
+
     [Inject]
     public var loginModel:LoginModel;
-    
+
     [Inject]
     public var loginService:ILoginService;
-    
+
     [Inject]
     public var channelModel:IChannelModel;
-    
+
     override public function execute ():void
     {
         switch (this.event.type)
@@ -42,17 +42,17 @@ public class LoginCommand extends Command
                         LoginView,
                         true
                     );
-                        
+
                 PopUpManager.centerPopUp(dialog);
-                
+
                 this.mediatorMap.createMediator(dialog);
-                
+
                 break;
             }
             case LoginEvent.LOGOUT:
             {
                 this.commandMap.detain(this);
-                
+
                 Alert.show
                 (
                     "Are you sure to logout?",
@@ -62,9 +62,9 @@ public class LoginCommand extends Command
                     this.onClose,
                     null,
                     Alert.CANCEL
-                    
+
                 ).isPopUp = false;
-                
+
                 break;
             }
             case LoginEvent.ON_LOGIN:
@@ -78,17 +78,17 @@ public class LoginCommand extends Command
                 break;
             }
         }
-        
+
     }
-    
+
     private function onClose (event:CloseEvent):void
     {
         if (event.detail == Alert.YES)
             this.loginService.logout();
-        
+
         this.commandMap.release(this);
     }
-    
+
 }
 }
 

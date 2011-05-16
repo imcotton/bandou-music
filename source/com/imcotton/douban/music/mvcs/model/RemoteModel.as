@@ -51,7 +51,7 @@ public class RemoteModel
 
         return this.makeRequest(variables);
     }
-    
+
     public function createLikeUnlike ($item:PlayListItem, $isLike:Boolean):URLRequest
     {
         var variables:Variables = new Variables()

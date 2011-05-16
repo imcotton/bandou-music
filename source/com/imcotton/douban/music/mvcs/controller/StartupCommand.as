@@ -60,7 +60,7 @@ public class StartupCommand extends Command
 
         this.commandMap.mapEvent(PlayListEvent.PLAY_NEXT, RadioServiceCommand, PlayListEvent);
         this.commandMap.mapEvent(RadioServiceEvent.RETRY_FAIL, RadioServiceCommand, RadioServiceEvent);
-        
+
         this.commandMap.mapEvent(LoginEvent.LOGIN, LoginCommand, LoginEvent);
         this.commandMap.mapEvent(LoginEvent.LOGOUT, LoginCommand, LoginEvent);
         this.commandMap.mapEvent(LoginEvent.ON_LOGIN, LoginCommand, LoginEvent);
@@ -69,7 +69,7 @@ public class StartupCommand extends Command
 
         this.mediatorMap.mapView(AppViewWrapper, AppViewMediator);
         this.mediatorMap.createMediator(this.injector.instantiate(AppViewWrapper));
-        
+
         this.mediatorMap.mapView(LoginView, LoginViewMediator, null, false, false);
 
 

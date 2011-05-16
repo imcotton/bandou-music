@@ -42,7 +42,7 @@ public class AppViewWrapper
     public function postConstruct ():void
     {
         this.appView.signBtn.addEventListener(MouseEvent.CLICK, signBtn_onClick);
-        
+
         this.appView.image.addEventListener(MouseEvent.CLICK, image_onClick);
 
         this.appView.volumeBar.addEventListener(Event.CHANGE, volumeBar_onChange);
@@ -58,15 +58,15 @@ public class AppViewWrapper
         {
             return ToggleButton(event.target).selected;
         });
-        
+
         this.deleteSignal = new NativeMappedSignal(this.appView.delBtn, MouseEvent.CLICK, MouseEvent);
     }
-    
+
     private function signBtn_onClick (event:MouseEvent):void
     {
         this.signSignal.dispatch();
     }
-    
+
     public function AppViewWrapper ()
     {
         this.init();
@@ -87,7 +87,7 @@ public class AppViewWrapper
         else
             this.appView.signBtn.label = "Sign in";
     }
-    
+
     public function changeChannelItem ($item:ChannelItem):void
     {
         this.appView.channelList.selectedItem = $item;
@@ -98,7 +98,7 @@ public class AppViewWrapper
         this.appView.image.source = $item.albumCoverURL;
         this.appView.titleText.text = $item.songName + " - " + $item.albumName;
         this.appView.authorText.text = $item.artistName;
-        
+
         this.appView.triggerBtn.selected
             = this.appView.repeatBtn.selected
             = this.appView.likeBtn.selected

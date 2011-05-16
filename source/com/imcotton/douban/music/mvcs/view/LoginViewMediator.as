@@ -14,13 +14,13 @@ import org.robotlegs.mvcs.Mediator;
 
 public class LoginViewMediator extends Mediator
 {
-    
+
     [Inject]
     public var view:LoginView;
-    
+
     [Inject]
     public var loginService:ILoginService;
-    
+
     override public function onRegister ():void
     {
         this.view.submitSignal.add(onSubmit);
@@ -29,7 +29,7 @@ public class LoginViewMediator extends Mediator
         this.addContextListener(LoginEvent.ON_LOGIN, onLoginEvent, LoginEvent);
         this.addContextListener(LoginEvent.LOGIN_FAIL, onLoginEvent, LoginEvent);
     }
-    
+
     private function onLoginEvent (event:Event):void
     {
         switch (event.type)
@@ -46,20 +46,20 @@ public class LoginViewMediator extends Mediator
             }
         }
     }
-    
+
     private function onSubmit ($email:String, $password:String):void
     {
         this.loginService.login($email, $password);
         this.view.toConnectState();
     }
-    
+
     private function onClose ():void
     {
         this.preRemove();
         PopUpManager.removePopUp(this.view);
         this.onRemove();
     }
-    
+
 }
 }
 

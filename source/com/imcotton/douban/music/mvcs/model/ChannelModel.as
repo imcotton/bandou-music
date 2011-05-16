@@ -58,7 +58,7 @@ public class ChannelModel extends Actor implements IChannelModel
     {
         return this.current == this.personal;
     }
-    
+
     public function getItemByIndex ($index:int):ChannelItem
     {
         return this.list[$index];
@@ -73,17 +73,17 @@ public class ChannelModel extends Actor implements IChannelModel
         this.personal = this.list.shift();
 
         this.dispatch(new ChannelEvent(ChannelEvent.LIST_UPDATE));
-        
+
         this.index = 0;
     }
-    
+
     public function showPresonalChannel ():void
     {
         this._index = -1;
         this._list.unshift(this.personal);
 
         this.dispatch(new ChannelEvent(ChannelEvent.LIST_UPDATE));
-        
+
         this.current = this.personal;
     }
 

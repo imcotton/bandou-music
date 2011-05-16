@@ -38,7 +38,7 @@ public class PlayListService extends Actor implements IPlayListService
     }
 
     private var loader:URLLoader;
-    
+
     private var isAppend:Boolean;
 
     public function renewChannel ():void
@@ -61,7 +61,7 @@ public class PlayListService extends Actor implements IPlayListService
 
         this.loader.load(this.remoteModel.createSkipRequest());
     }
-    
+
     public function fetchForSong ($item:PlayListItem, $isLike:Boolean):void
     {
         this.cancel();
@@ -69,18 +69,18 @@ public class PlayListService extends Actor implements IPlayListService
         this.isAppend = true;
         this.loader.load(this.remoteModel.createLikeUnlike($item, $isLike));
     }
-    
+
     public function fetchForBlank ($item:PlayListItem):void
     {
         this.cancel();
 
         this.loader.load(this.remoteModel.createBlank($item));
     }
-    
+
     private function cancel ():void
     {
         this.isAppend = false;
-        
+
         if (!this.loader)
             return;
 
@@ -91,7 +91,7 @@ public class PlayListService extends Actor implements IPlayListService
     private function init ():void
     {
         this.isAppend = false;
-        
+
         this.loader = new URLLoader();
         this.loader.addEventListener(Event.COMPLETE, loader_onEvent);
         this.loader.addEventListener(IOErrorEvent.IO_ERROR, loader_onEvent);
@@ -109,7 +109,7 @@ public class PlayListService extends Actor implements IPlayListService
                 if (arr && arr.length)
                 {
                     arr = this.playListJSONParser.parseJSON(arr);
-                    
+
                     if (this.isAppend)
                         this.playListModel.append(arr);
                     else
@@ -124,7 +124,7 @@ public class PlayListService extends Actor implements IPlayListService
                 break;
             }
         }
-        
+
         this.isAppend = false;
     }
 

@@ -5,7 +5,7 @@ public interface IChannelModel
 {
 
     function get isPersonalChannel ():Boolean;
-    
+
     function get current ():ChannelItem;
     function set current (item:ChannelItem):void;
 
@@ -17,9 +17,9 @@ public interface IChannelModel
     function getItemByIndex (index:int):ChannelItem;
 
     function updateList (list:Array):void;
-    
+
     function showPresonalChannel ():void;
-    
+
     function hidePresonalChannel ():void;
 
 }

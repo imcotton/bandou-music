@@ -19,41 +19,41 @@ import org.robotlegs.mvcs.Actor;
 
 public class LoginService extends Actor implements ILoginService
 {
-    
+
     [Inject]
     public var loginModel:LoginModel;
-    
+
     public function LoginService ()
     {
         this.init();
     }
-    
+
     private var loader:URLLoader;
 
     private var request:URLRequest;
     private var logoutRequest:URLRequest;
-    
+
     public function login ($email:String, $password:String):void
     {
         this.cancel();
-        
+
         var variables:URLVariables = new URLVariables();
             variables.source = "radio";
             variables.form_email = $email;
-            variables.form_password = $password;            
+            variables.form_password = $password;
 
         this.request.data = variables;
         this.loader.load(this.request);
         this.request.data = null;
     }
-    
+
     public function logout ():void
     {
         new URLLoader(this.logoutRequest);
         this.loginModel.reset();
         this.dispatch(new LoginEvent(LoginEvent.ON_LOGOUT));
     }
-    
+
     private function parse ($page:String):void
     {
         if (!$page)
@@ -61,18 +61,18 @@ public class LoginService extends Actor implements ILoginService
             this.dispatch(new LoginEvent(LoginEvent.LOGIN_FAIL));
             return;
         }
-        
+
         var list:Array = $page.split(/\n/);
-        
+
         for each (var item:String in list)
         {
             item = StringUtils.trim(item);
-                
+
             if (item.indexOf("uid") != -1)
             {
                 this.loginModel.uid = item.match(/\buid:.*['|"](.+)['|"]/)[1];
             }
-            
+
             if (item.indexOf('id="fm-user"') != -1)
             {
                 var tf:TextField = new TextField();
@@ -94,7 +94,7 @@ public class LoginService extends Actor implements ILoginService
             this.loginModel.hasLogin ? LoginEvent.ON_LOGIN : LoginEvent.LOGIN_FAIL
         ));
     }
-    
+
     private function cancel ():void
     {
         if (!this.loader)
@@ -103,12 +103,12 @@ public class LoginService extends Actor implements ILoginService
         try { this.loader.close() }
         catch (error:Error) { }
     }
-    
+
     private function init ():void
     {
         this.request = new URLRequest("https://www.douban.com/accounts/login");
         this.request.method = URLRequestMethod.POST;
-        
+
         this.loader = new URLLoader();
         this.loader.addEventListener(Event.COMPLETE, loader_onEvent);
         this.loader.addEventListener(IOErrorEvent.IO_ERROR, loader_onEvent);
@@ -129,7 +129,7 @@ public class LoginService extends Actor implements ILoginService
             }
         }
     }
-    
+
 }
 }
 
