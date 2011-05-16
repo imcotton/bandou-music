@@ -20,6 +20,8 @@ public class PlayListJSONParser implements IPlayListJSONParser
             item.sid = i.sid;
             item.artistName = i.artist;
 
+            item.liked = i.like != "0";
+
             item.albumName = i.albumtitle;
             item.albumCoverURL = i.picture;
 

@@ -10,6 +10,8 @@ public class PlayListItem
     public var aid:String;
     public var sid:String;
 
+    public var liked:Boolean;
+
     public var artistName:String;
 
     public var albumName:String;
