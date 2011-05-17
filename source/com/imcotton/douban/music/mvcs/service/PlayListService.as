@@ -74,7 +74,7 @@ public class PlayListService extends Actor implements IPlayListService
     {
         this.cancel();
 
-        this.loader.load(this.remoteModel.createBlank($item));
+        this.loader.load(this.remoteModel.createBan($item));
     }
 
     private function cancel ():void

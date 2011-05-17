@@ -63,10 +63,10 @@ public class RemoteModel
         return this.makeRequest(variables);
     }
 
-    public function createBlank ($item:PlayListItem):URLRequest
+    public function createBan ($item:PlayListItem):URLRequest
     {
         var variables:Variables = new Variables()
-                .setType(TypeEnum.BLANK)
+                .setType(TypeEnum.BAN)
                 .setSID($item.sid)
                 .setHistory(null)
                 .setChannelID(this.channelModel.current.id);
@@ -127,7 +127,7 @@ class TypeEnum
     public static const SKIP_NEXT:String = "s";
     public static const LIKE:String = "r";
     public static const UNLIKE:String = "u";
-    public static const BLANK:String = "b";
+    public static const BAN:String = "b";
 
 }
 

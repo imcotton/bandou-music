@@ -68,7 +68,7 @@ public class AppViewMediator extends Mediator
     {
         if (this.loginModel.hasLogin && this.channelMode.isPersonalChannel)
         {
-            var event:PlayListEvent = new PlayListEvent(PlayListEvent.BLANK);
+            var event:PlayListEvent = new PlayListEvent(PlayListEvent.BAN);
                 event.playListItem = this.playListModel.current;
 
             this.dispatch(event);
