@@ -11,7 +11,7 @@ import mx.logging.targets.TraceTarget;
 import org.robotlegs.mvcs.Command;
 
 
-internal class LoggerPrepareCommand extends Command
+internal class LoggerPrepCommand extends Command
 {
 
     override public function execute ():void

@@ -33,7 +33,7 @@ public class StartupCommand extends Command
 
     override public function execute ():void
     {
-        this.commandMap.execute(LoggerPrepareCommand);
+        this.commandMap.execute(LoggerPrepCommand);
 
         this.injector.mapSingletonOf(IPlayListJSONParser, PlayListJSONParser);
         this.injector.mapSingletonOf(IChannelModel, ChannelModel);
