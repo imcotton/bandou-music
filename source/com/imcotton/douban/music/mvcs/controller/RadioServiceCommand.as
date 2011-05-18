@@ -9,6 +9,8 @@ import com.imcotton.douban.music.mvcs.service.IRadioService;
 import flash.events.Event;
 import flash.utils.Dictionary;
 
+import mx.logging.ILogger;
+
 import org.robotlegs.mvcs.Command;
 
 
@@ -23,6 +25,9 @@ public class RadioServiceCommand extends Command
 
     [Inject]
     public var playListModel:PlayListModel;
+
+    [Inject]
+    public var logger:ILogger;
 
     private var eventDict:Dictionary = new Dictionary(true);
 
@@ -49,6 +54,8 @@ public class RadioServiceCommand extends Command
                     event.playListItem.songURL,
                     event.playListItem.songDuration
                 );
+
+                this.logger.info("{0} : {1}", event.playListItem.sid, event.playListItem.songURL);
                 break;
             }
         }
