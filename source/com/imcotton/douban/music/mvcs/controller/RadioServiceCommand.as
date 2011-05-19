@@ -65,6 +65,7 @@ public class RadioServiceCommand extends Command
     {
         switch (event.type)
         {
+            case RadioServiceEvent.COMPLETE:
             case RadioServiceEvent.RETRY_FAIL:
             {
                 this.playListModel.next();

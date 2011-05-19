@@ -173,7 +173,7 @@ public class RadioService extends Actor implements IRadioService
     private function player_onComplete (event:TimeEvent):void
     {
         if (!this.player.loop)
-            this.playListModel.next();
+            this.dispatch(new RadioServiceEvent(RadioServiceEvent.COMPLETE));
     }
 
 }

@@ -4,6 +4,7 @@ package com.imcotton.douban.music.mvcs.view
 import com.imcotton.douban.music.events.ChannelEvent;
 import com.imcotton.douban.music.events.LoginEvent;
 import com.imcotton.douban.music.events.PlayListEvent;
+import com.imcotton.douban.music.events.RadioServiceEvent;
 import com.imcotton.douban.music.mvcs.model.ChannelItem;
 import com.imcotton.douban.music.mvcs.model.IChannelModel;
 import com.imcotton.douban.music.mvcs.model.IRadioSignalEnum;
@@ -141,7 +142,7 @@ public class AppViewMediator extends Mediator
 
     private function onNext ():void
     {
-        this.playListModel.next();
+        this.dispatch(new RadioServiceEvent(RadioServiceEvent.COMPLETE));
     }
 
     private function onContextEvent (event:Event):void
