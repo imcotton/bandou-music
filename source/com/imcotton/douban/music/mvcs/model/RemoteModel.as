@@ -20,7 +20,7 @@ public class RemoteModel
     [Inject]
     public var playListModel:PlayListModel;
 
-    public function createRenewRequest ():URLRequest
+    public function createRenew ():URLRequest
     {
         var variables:Variables = new Variables()
                 .setType(TypeEnum.LIST_OUT)
@@ -31,7 +31,7 @@ public class RemoteModel
         return this.makeRequest(variables);
     }
 
-    public function createNewChannelRequest ($item:ChannelItem):URLRequest
+    public function createNewChannel ($item:ChannelItem):URLRequest
     {
         var variables:Variables = new Variables()
                 .setType(TypeEnum.NEW_LIST)
@@ -41,7 +41,7 @@ public class RemoteModel
         return this.makeRequest(variables);
     }
 
-    public function createSkipRequest ():URLRequest
+    public function createSkip ():URLRequest
     {
         var variables:Variables = new Variables()
                 .setType(TypeEnum.SKIP_NEXT)
