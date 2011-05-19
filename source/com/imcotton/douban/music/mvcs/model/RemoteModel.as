@@ -3,6 +3,8 @@ package com.imcotton.douban.music.mvcs.model
 
 import by.blooddy.crypto.MD5;
 
+import com.imcotton.douban.music.data.PlayTypeEnum;
+
 import flash.net.URLRequest;
 import flash.net.URLVariables;
 
@@ -23,7 +25,7 @@ public class RemoteModel
     public function createRenew ():URLRequest
     {
         var variables:Variables = new Variables()
-                .setType(TypeEnum.LIST_OUT)
+                .setType(PlayTypeEnum.LIST_OUT)
                 .setSID(this.playListModel.current.sid)
                 .setHistory(null)
                 .setChannelID(this.channelModel.current.id);
@@ -34,7 +36,7 @@ public class RemoteModel
     public function createNewChannel ($item:ChannelItem):URLRequest
     {
         var variables:Variables = new Variables()
-                .setType(TypeEnum.NEW_LIST)
+                .setType(PlayTypeEnum.NEW_LIST)
                 .setHistory(null)
                 .setChannelID($item.id);
 
@@ -44,7 +46,7 @@ public class RemoteModel
     public function createSkip ():URLRequest
     {
         var variables:Variables = new Variables()
-                .setType(TypeEnum.SKIP_NEXT)
+                .setType(PlayTypeEnum.SKIP_NEXT)
                 .setSID(this.playListModel.current.sid)
                 .setHistory(null)
                 .setChannelID(this.channelModel.current.id);
@@ -55,7 +57,7 @@ public class RemoteModel
     public function createLikeUnlike ($item:PlayListItem, $isLike:Boolean):URLRequest
     {
         var variables:Variables = new Variables()
-                .setType($isLike ? TypeEnum.LIKE : TypeEnum.UNLIKE)
+                .setType($isLike ? PlayTypeEnum.LIKE : PlayTypeEnum.UNLIKE)
                 .setSID($item.sid)
                 .setHistory(null)
                 .setChannelID(this.channelModel.current.id);
@@ -66,7 +68,7 @@ public class RemoteModel
     public function createBan ($item:PlayListItem):URLRequest
     {
         var variables:Variables = new Variables()
-                .setType(TypeEnum.BAN)
+                .setType(PlayTypeEnum.BAN)
                 .setSID($item.sid)
                 .setHistory(null)
                 .setChannelID(this.channelModel.current.id);
@@ -117,20 +119,6 @@ public class RemoteModel
 
 
 import flash.net.URLVariables;
-
-
-class TypeEnum
-{
-
-    public static const LIST_OUT:String = "p";
-    public static const NEW_LIST:String = "n";
-    public static const SKIP_NEXT:String = "s";
-    public static const LIKE:String = "r";
-    public static const UNLIKE:String = "u";
-    public static const BAN:String = "b";
-
-}
-
 
 
 class Variables
