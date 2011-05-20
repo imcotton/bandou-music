@@ -27,24 +27,24 @@ public class PlayHistoryModel implements IPlayHistoryModel
 
     public function get historyString ():String
     {
-        var array:Array = this.list.concat();
-
-        for (var i:String in array)
-            array[i] = "|" + array[i];
-
-        return array.join("");
+        return this.list.join("");
     }
 
     public function push ($item:PlayListItem, $type:String):void
     {
-        this.list.push($item.sid + ":" + $type);
+        this.list.push("|" + $item.sid + ":" + $type);
 
         if (this.list.length > MAX_COUNT)
             this.list.shift();
 
         this.so.flush();
     }
-
+    
+    public function clean ():void
+    {
+        this.so.data.list = null;
+    }
+    
     private function init ():void
     {
         this.so = SharedObject.getLocal("PlayHistoryModel");
