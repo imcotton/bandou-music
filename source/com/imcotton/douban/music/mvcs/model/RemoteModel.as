@@ -22,12 +22,15 @@ public class RemoteModel
     [Inject]
     public var playListModel:PlayListModel;
 
+    [Inject]
+    public var playHistoryModel:IPlayHistoryModel;
+
     public function createRenew ():URLRequest
     {
         var variables:Variables = new Variables()
                 .setType(PlayTypeEnum.LIST_OUT)
                 .setSID(this.playListModel.current.sid)
-                .setHistory(null)
+                .setHistory(this.playHistoryModel.historyString)
                 .setChannelID(this.channelModel.current.id);
 
         return this.makeRequest(variables);
@@ -37,7 +40,7 @@ public class RemoteModel
     {
         var variables:Variables = new Variables()
                 .setType(PlayTypeEnum.NEW_LIST)
-                .setHistory(null)
+                .setHistory(this.playHistoryModel.historyString)
                 .setChannelID($item.id);
 
         return this.makeRequest(variables);
@@ -48,7 +51,7 @@ public class RemoteModel
         var variables:Variables = new Variables()
                 .setType(PlayTypeEnum.SKIP_NEXT)
                 .setSID(this.playListModel.current.sid)
-                .setHistory(null)
+                .setHistory(this.playHistoryModel.historyString)
                 .setChannelID(this.channelModel.current.id);
 
         return this.makeRequest(variables);
@@ -59,7 +62,7 @@ public class RemoteModel
         var variables:Variables = new Variables()
                 .setType($isLike ? PlayTypeEnum.LIKE : PlayTypeEnum.UNLIKE)
                 .setSID($item.sid)
-                .setHistory(null)
+                .setHistory(this.playHistoryModel.historyString)
                 .setChannelID(this.channelModel.current.id);
 
         return this.makeRequest(variables);
@@ -70,7 +73,7 @@ public class RemoteModel
         var variables:Variables = new Variables()
                 .setType(PlayTypeEnum.BAN)
                 .setSID($item.sid)
-                .setHistory(null)
+                .setHistory(this.playHistoryModel.historyString)
                 .setChannelID(this.channelModel.current.id);
 
         return this.makeRequest(variables);

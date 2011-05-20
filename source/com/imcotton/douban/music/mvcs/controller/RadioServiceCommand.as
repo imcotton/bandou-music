@@ -1,8 +1,10 @@
 package com.imcotton.douban.music.mvcs.controller
 {
 
+import com.imcotton.douban.music.data.PlayTypeEnum;
 import com.imcotton.douban.music.events.PlayListEvent;
 import com.imcotton.douban.music.events.RadioServiceEvent;
+import com.imcotton.douban.music.mvcs.model.IPlayHistoryModel;
 import com.imcotton.douban.music.mvcs.model.PlayListModel;
 import com.imcotton.douban.music.mvcs.service.IRadioService;
 
@@ -25,6 +27,9 @@ public class RadioServiceCommand extends Command
 
     [Inject]
     public var playListModel:PlayListModel;
+
+    [Inject]
+    public var playHistoryModel:IPlayHistoryModel;
 
     [Inject]
     public var logger:ILogger;
@@ -68,6 +73,7 @@ public class RadioServiceCommand extends Command
             case RadioServiceEvent.COMPLETE:
             case RadioServiceEvent.RETRY_FAIL:
             {
+                this.playHistoryModel.push(this.playListModel.current, PlayTypeEnum.END);
                 this.playListModel.next();
                 break;
             }

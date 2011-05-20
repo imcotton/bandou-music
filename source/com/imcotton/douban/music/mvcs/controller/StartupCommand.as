@@ -9,7 +9,9 @@ import com.imcotton.douban.music.events.PlayListEvent;
 import com.imcotton.douban.music.events.RadioServiceEvent;
 import com.imcotton.douban.music.mvcs.model.ChannelModel;
 import com.imcotton.douban.music.mvcs.model.IChannelModel;
+import com.imcotton.douban.music.mvcs.model.IPlayHistoryModel;
 import com.imcotton.douban.music.mvcs.model.LoginModel;
+import com.imcotton.douban.music.mvcs.model.PlayHistoryModel;
 import com.imcotton.douban.music.mvcs.model.PlayListModel;
 import com.imcotton.douban.music.mvcs.model.RemoteModel;
 import com.imcotton.douban.music.mvcs.service.ChannelService;
@@ -37,6 +39,7 @@ public class StartupCommand extends Command
 
         this.injector.mapSingletonOf(IPlayListJSONParser, PlayListJSONParser);
         this.injector.mapSingletonOf(IChannelModel, ChannelModel);
+        this.injector.mapSingletonOf(IPlayHistoryModel, PlayHistoryModel);
         this.injector.mapSingleton(PlayListModel);
         this.injector.mapSingleton(RemoteModel);
         this.injector.mapSingleton(LoginModel);

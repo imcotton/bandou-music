@@ -1,8 +1,10 @@
 package com.imcotton.douban.music.mvcs.controller
 {
 
+import com.imcotton.douban.music.data.PlayTypeEnum;
 import com.imcotton.douban.music.events.PlayListEvent;
 import com.imcotton.douban.music.mvcs.model.IChannelModel;
+import com.imcotton.douban.music.mvcs.model.IPlayHistoryModel;
 import com.imcotton.douban.music.mvcs.model.PlayListModel;
 import com.imcotton.douban.music.mvcs.service.IPlayListService;
 
@@ -24,6 +26,9 @@ public class PlayListCommand extends Command
     [Inject]
     public var channelModel:IChannelModel;
 
+    [Inject]
+    public var playHistoryModel:IPlayHistoryModel;
+
     override public function execute ():void
     {
         switch (event.type)
@@ -35,6 +40,7 @@ public class PlayListCommand extends Command
             }
             case PlayListEvent.SKIP_NEXT:
             {
+                this.playHistoryModel.push(this.playListModel.current, PlayTypeEnum.SKIP_NEXT);
                 this.playListService.skip();
                 break;
             }
