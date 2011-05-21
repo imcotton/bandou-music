@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="project" default="default">
+    
+	<property file="./build.property"/>
+	<property file="./customize.property"/>
+
+    <target name="default" depends="build">
+        
+    	<echo>done</echo>
+
+    </target>
+    
+    <target name="prep">
+
+    	<delete dir="${output}" includeemptydirs="true" failonerror="false"/>
+        <mkdir dir="${output}"/>
+
+    </target>
+    
+    <target name="build">
+
+    	<java jar="${FLEX_HOME}/lib/mxmlc.jar" dir="${FLEX_HOME}/frameworks/" fork="true" failonerror="true">
+            <arg value="+configname=air"/>
+            <arg value="+flexhome=${FLEX_HOME}"/>
+            <arg value="+flexlib=${FLEX_HOME}/frameworks"/>
+            <arg value="-load-config+=${basedir}/flex-config.xml"/>
+            <arg value="-library-path+=${basedir}/../libs"/>
+            <arg value="-source-path+=${basedir}/../source"/>
+            <arg value="-file-specs=${basedir}/../source/DouBanMusic.mxml"/>
+            <arg value="-output=${output}/DoubanMusic.swf"/>
+        </java>
+        
+    </target>
+    
+    <target name="launch">
+            
+        <exec executable="${FLEX_HOME}/bin/adl.exe">
+            <arg value="${basedir}/../source/DoubanMusic-app.xml"/>
+            <arg value="${output}"/>
+        </exec>
+
+    </target>
+
+</project>

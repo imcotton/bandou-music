@@ -1,0 +1,170 @@
+<flex-config>
+   <!-- benchmark: output performance benchmark-->
+   <!-- benchmark usage: -->
+   <benchmark>false</benchmark>
+   <compiler>
+      <!-- compiler.accessible: generate an accessible SWF-->
+      <accessible>false</accessible>
+      <!-- compiler.debug: generates a movie that is suitable for debugging-->
+      <debug>false</debug>
+      <!-- compiler.define: define a global AS3 conditional compilation definition, e.g. -define=CONFIG::debugging,true or -define+=CONFIG::debugging,true (to append to existing definitions in flex-config.xml) -->
+      <!-- compiler.define usage:
+      <define>
+         <name>string</name>
+         <value>string</value>
+         <value>string</value>
+      </define>
+      -->
+      <!-- compiler.headless-server: a flag to set when Flex is running on a server without a display-->
+      <!-- compiler.headless-server usage: -->
+      <headless-server>true</headless-server>
+      <!-- compiler.include-libraries: a list of libraries (SWCs) to completely include in the SWF-->
+      <!-- compiler.include-libraries usage:
+      <include-libraries>
+         <library>string</library>
+         <library>string</library>
+      </include-libraries>
+      -->
+      <!-- compiler.incremental: enables incremental compilation-->
+      <!-- compiler.incremental usage: -->
+      <incremental>true</incremental>
+      <!-- compiler.isolate-styles: enables the compiled application or module to set styles that only affect itself and its children-->
+      <!-- compiler.isolate-styles usage:
+      <isolate-styles>boolean</isolate-styles>
+      -->
+      <!-- compiler.keep-all-type-selectors: disables the pruning of unused CSS type selectors-->
+      <!-- compiler.keep-all-type-selectors usage:
+      <keep-all-type-selectors>boolean</keep-all-type-selectors>
+      -->
+      <!-- compiler.keep-as3-metadata: keep the specified metadata in the SWF-->
+      <!-- compiler.keep-as3-metadata usage:
+      <keep-as3-metadata>
+         <name>string</name>
+         <name>string</name>
+      </keep-as3-metadata>
+      -->
+      <!-- compiler.keep-generated-actionscript: save temporary source files generated during MXML compilation-->
+      <keep-generated-actionscript>false</keep-generated-actionscript>
+      <!-- compiler.library-path: list of SWC files or directories that contain SWC files-->
+      <library-path append="true">
+         <path-element></path-element>
+      </library-path>
+      <!-- compiler.locale: specifies the locale for internationalization-->
+      <locale>
+         <locale-element>en_US</locale-element>
+      </locale>
+      <!-- compiler.minimum-supported-version usage:
+      <minimum-supported-version>string</minimum-supported-version>
+      -->
+      <!-- compiler.mobile: specifies the target runtime is a mobile device-->
+      <mobile>false</mobile>
+      <!-- compiler.omit-trace-statements: toggle whether trace statements are omitted-->
+      <omit-trace-statements>true</omit-trace-statements>
+      <!-- compiler.optimize: Enable post-link SWF optimization-->
+      <optimize>true</optimize>
+      <!-- compiler.source-path: list of path elements that form the roots of ActionScript class hierarchies-->
+      <source-path>
+         <path-element></path-element>
+      </source-path>
+      <!-- compiler.theme: list of CSS or SWC files to apply as a theme-->
+      <theme>
+         <filename>${flexlib}/themes/Spark/spark.css</filename>
+         <filename>${flexlib}/themes/Wireframe/wireframe.swc</filename>
+      </theme>
+   </compiler>
+   <!-- externs: a list of symbols to omit from linking when building a SWF-->
+   <!-- externs usage:
+   <externs>
+      <symbol>string</symbol>
+      <symbol>string</symbol>
+   </externs>
+   -->
+   <framework>halo</framework>
+   <!-- include-inheritance-dependencies-only: only include inheritance dependencies of classes specified with include-classes -->
+   <!-- include-inheritance-dependencies-only usage:
+   <include-inheritance-dependencies-only>boolean</include-inheritance-dependencies-only>
+   -->
+   <!-- include-resource-bundles: a list of resource bundles to include in the output SWC-->
+   <!-- include-resource-bundles usage:
+   <include-resource-bundles>
+      <bundle>string</bundle>
+      <bundle>string</bundle>
+   </include-resource-bundles>
+   -->
+   <!-- includes: a list of symbols to always link in when building a SWF-->
+   <!-- includes usage:
+   <includes>
+      <symbol>string</symbol>
+      <symbol>string</symbol>
+   </includes>
+   -->
+   <!-- link-report: Output a XML-formatted report of all definitions linked into the application.-->
+   <!-- link-report usage:
+   <link-report>reoprt.xml</link-report>
+   -->
+   <!-- load-externs: an XML file containing <def>, <pre>, and <ext> symbols to omit from linking when building a SWF-->
+   <!-- load-externs usage:
+   <load-externs>filename</load-externs>
+   -->
+   <metadata>
+      <!-- metadata.contributor: A contributor's name to store in the SWF metadata-->
+      <!-- metadata.contributor usage:
+      <contributor>name</contributor>
+      -->
+      <!-- metadata.creator: A creator's name to store in the SWF metadata-->
+      <creator>unknown</creator>
+      <!-- metadata.date: The creation date to store in the SWF metadata-->
+      <!-- metadata.date usage:
+      <date>text</date>
+      -->
+      <!-- metadata.description: The default description to store in the SWF metadata-->
+      <description>http://www.adobe.com/products/flex</description>
+      <!-- metadata.language: The language to store in the SWF metadata (i.e. EN, FR)-->
+      <language>EN</language>
+      <!-- metadata.localized-description: A localized RDF/XMP description to store in the SWF metadata-->
+      <!-- metadata.localized-description usage:
+      <localized-description>
+         <text>string</text>
+         <lang>string</lang>
+         <lang>string</lang>
+      </localized-description>
+      -->
+      <!-- metadata.localized-title: A localized RDF/XMP title to store in the SWF metadata-->
+      <!-- metadata.localized-title usage:
+      <localized-title>
+         <title>string</title>
+         <lang>string</lang>
+         <lang>string</lang>
+      </localized-title>
+      -->
+      <!-- metadata.publisher: A publisher's name to store in the SWF metadata-->
+      <publisher>unknown</publisher>
+      <!-- metadata.title: The default title to store in the SWF metadata-->
+      <title>Adobe Flex 4 Application</title>
+   </metadata>
+   <!-- size-report: Output an XML-formatted report detailing the size of all code and data linked into the application.-->
+   <!-- size-report usage:
+   <size-report>size-report.xml</size-report>
+   -->
+   <!-- static-link-runtime-shared-libraries: statically link the libraries specified by the -runtime-shared-libraries-path option.-->
+   <static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
+   <!-- swf-version: specifies the version of the compiled SWF file.-->
+   <swf-version>11</swf-version>
+   <!-- target-player: specifies the version of the player the application is targeting. Features requiring a later version will not be compiled into the application. The minimum value supported is "9.0.0".-->
+   <target-player>10.2.0</target-player>
+   <!-- tools-locale: specifies the locale used by the compiler when reporting errors and warnings.-->
+   <!-- tools-locale usage: -->
+   <tools-locale>en</tools-locale>
+   <!-- use-direct-blit: Use hardware acceleration to blit graphics to the screen, where such acceleration is available.-->
+   <!-- use-direct-blit usage:
+   <use-direct-blit>boolean</use-direct-blit>
+   -->
+   <!-- use-gpu: Use GPU compositing features when drawing graphics, where such acceleration is available.-->
+   <!-- use-gpu usage:
+   <use-gpu>boolean</use-gpu>
+   -->
+   <!-- use-network: toggle whether the SWF is flagged for access to network resources-->
+   <use-network>true</use-network>
+   <!-- verify-digests: verifies the libraries loaded at runtime are the correct ones.-->
+   <verify-digests>false</verify-digests>
+</flex-config>
