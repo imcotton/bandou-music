@@ -68,7 +68,7 @@ public class LoginService extends Actor implements ILoginService
         {
             item = StringUtils.trim(item);
 
-            if (item.indexOf("uid") != -1)
+            if (item.indexOf("uid:") != -1)
             {
                 this.loginModel.uid = item.match(/\buid:.*['|"](.+)['|"]/)[1];
             }
@@ -80,7 +80,7 @@ public class LoginService extends Actor implements ILoginService
                 this.loginModel.name = StringUtils.trim(tf.text);
             }
 
-            if (item.indexOf("ck=") != -1)
+            if (/\bck=/.test(item))
             {
                 this.logoutRequest = new URLRequest(item.match(/["|'](.*)["|']/)[1]);
                 this.logoutRequest.requestHeaders = [new URLRequestHeader("Referer", "http://www.douban.com")];
