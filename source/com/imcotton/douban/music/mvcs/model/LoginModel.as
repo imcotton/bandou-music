@@ -12,7 +12,10 @@ public class LoginModel
 
     public function get hasLogin ():Boolean
     {
-        return this.uid && this.uid != "0";
+        return    this.uid
+               && this.uid != "0"
+               && this.ck
+               && this.name;
     }
 
     public function reset ():void

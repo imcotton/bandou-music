@@ -78,15 +78,21 @@ public class LoginService extends Actor implements ILoginService
                 var tf:TextField = new TextField();
                     tf.htmlText = item;
                 this.loginModel.name = StringUtils.trim(tf.text);
+                
+                if (/^{{/.test(this.loginModel.name))
+                    this.loginModel.name = null;
             }
 
-            if (/\bck=/.test(item))
+            if (/\bck=\w/.test(item))
             {
                 this.logoutRequest = new URLRequest(item.match(/["|'](.*)["|']/)[1]);
                 this.logoutRequest.requestHeaders = [new URLRequestHeader("Referer", "http://www.douban.com")];
 
-                this.loginModel.ck = item.match(/\bck=(.*)['|"]/)[1];
+                this.loginModel.ck = item.match(/\bck=(\w+)/)[1];
             }
+            
+            if (this.loginModel.hasLogin)
+                break;
         }
 
         this.dispatch(new LoginEvent
