@@ -47,7 +47,7 @@ public class StartupCommand extends Command
         this.injector.mapSingletonOf(IChannelService, ChannelService);
         this.injector.mapSingletonOf(IRadioService, RadioService);
         this.injector.mapSingletonOf(ILoginService, LoginService);
-        this.injector.mapValue(DoubanMusic, this.contextView);
+        this.injector.mapValue(BanDouMusic, this.contextView);
 
         //  only to make sure the IRadioSignalEnum get mapped
         this.injector.getInstance(IRadioService);

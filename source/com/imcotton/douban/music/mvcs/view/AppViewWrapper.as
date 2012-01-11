@@ -25,7 +25,7 @@ public class AppViewWrapper
     public var channelModel:IChannelModel;
 
     [Inject]
-    public var appView:DoubanMusic;
+    public var appView:BanDouMusic;
 
     public var channelSignal:Signal;
     public var skipSignal:Signal;
