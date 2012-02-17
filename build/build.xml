@@ -32,6 +32,35 @@
         
     </target>
     
+    <target name="package-AIRI" depends="build">
+
+        <java jar="${FLEX_HOME}/lib/adt.jar" fork="true" failonerror="true">
+            <arg value="-prepare"/>
+            <arg value="${output}/DoubanMusic.airi"/>
+            <arg value="${basedir}/../source/DoubanMusic-app.xml"/>
+            <arg value="-C"/>
+            <arg value="${output}"/>
+            <arg value="DoubanMusic.swf"/>
+        </java>
+
+    </target>
+
+    <target name="package-AIR" depends="package-AIRI">
+
+        <java jar="${FLEX_HOME}/lib/adt.jar" fork="true" failonerror="true">
+            <arg value="-sign"/>
+            <arg value="-storetype"/>
+            <arg value="pkcs12"/>
+            <arg value="-storepass"/>
+            <arg value="${STOREPASS}"/>
+            <arg value="-keystore"/>
+            <arg value="${PKCS12}"/>
+            <arg value="${output}/DoubanMusic.airi"/>
+            <arg value="${output}/DoubanMusic.air"/>
+        </java>
+
+    </target>
+
     <target name="launch">
             
         <exec executable="${FLEX_HOME}/bin/adl.exe">
