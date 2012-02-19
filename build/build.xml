@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="BandouMusic" default="default">
+<project name="DoubanMusic" default="default">
     
 	<property file="./build.property"/>
 	<property file="./customize.property"/>
@@ -26,7 +26,7 @@
             <arg value="-load-config+=${basedir}/flex-config.xml"/>
             <arg value="-library-path+=${basedir}/../libs"/>
             <arg value="-source-path+=${basedir}/../source"/>
-            <arg value="-file-specs=${basedir}/../source/DouBanMusic.mxml"/>
+            <arg value="-file-specs=${basedir}/../source/DoubanMusic.mxml"/>
             <arg value="-output=${output}/DoubanMusic.swf"/>
         </java>
         
